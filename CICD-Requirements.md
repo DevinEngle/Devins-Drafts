@@ -8,6 +8,18 @@ Rapid's connector platform relies on a CI/CD (Continuous Integration/Continuous 
 
 To receive automated updates at no additional cost, clients must allow the deployment access outlined in this document.
 
+## Table of Contents
+
+- [Billing Policy](#billing-policy)
+- [Technical Requirements](#technical-requirements)
+- [Installation Requirements](#installation-requirements)
+- [Upgrade Requirements](#upgrade-requirements)
+- [IT Checklist](#it-checklist)
+- [Offline Station Requirements](#offline-station-requirements)
+- [Replication Limitations](#replication-limitations)
+- [Common Causes of Failed Deployments](#common-causes-of-failed-deployments)
+- [Questions](#questions)
+
 ## Billing Policy
 
 Rapid will provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window.
