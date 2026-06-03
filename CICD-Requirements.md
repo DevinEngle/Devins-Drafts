@@ -54,13 +54,13 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 1. Connectors are installed on the Counterpoint server.
    - Exception: The _Rapid Custom Task Agent_ generally is installed on the Counterpoint server but can be installed on the SQL server in certain use cases when SQL Server is not installed on the Counterpoint server.
         
-2. A version of Counterpoint and SQL Server must be installed that meets the minimum requirements for the specific connector.
+2. Counterpoint and SQL Server versions that meet the requirements for the specific connector must be installed.
 
-3. Administrator-level connector platform access and credentials must be provided.
+3. Administrator-level server access must be provided for the initial installation. 
 
-4. Administrator-level server access must be provided for the initial installation.
+4. Administrator-level connector platform access and credentials must be provided.
 
-5. Initial installation of the CI/CD connector will be scheduled with the client based on availability.
+5. Initial installation of the CI/CD connector will be scheduled with the client based on client and Rapid availability.
    - All users must be logged out of Counterpoint during installations unless otherwise specified by Rapid.
    - Installations will typically be scheduled after the close of business.
    - Exceptions: The _Rapid CP API_ and _Rapid Custom Task Agent_ can typically be installed during business hours.
@@ -83,7 +83,7 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 
 2. During both the initial installation and all upgrades, all offline stations must be powered on.
 
-3. If offline stations are not powered on, the database rebuild will be queued and will install the next time the computer is powered on.
+3. If offline stations are not powered on, the database rebuild will be queued and will run the next time the workstation is powered on.
 
 4. Users must not use Counterpoint while a rebuild is in progress.
 
@@ -92,7 +92,7 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 #### For Clients Using Replication
 
 - Certain CI/CD connectors are not currently supported in multi-site replication environments.
-- If you have a hub server and one or more remote servers, please consult with Rapid before requesting installation of a CI/CD connector.
+- If you have a hub server and one or more remote servers, please consult with Rapid before requesting a CI/CD connector.
 
 ## IT Checklist
 
@@ -115,9 +115,9 @@ The following are the most common reasons automated deployments fail:
 - Connector services cannot be stopped or restarted.
 - Insufficient administrative permissions.
 - Users actively logged into Counterpoint during deployment.
-- Offline stations unavailable during deployment.
+- Offline stations not powered on or unavailable during deployment.
 - Application control software preventing Rapid deployment processes from running.
 
 ## Questions
 
-Please contact the Rapid Programming Team if your IT staff require additional technical information regarding the deployment process or access requirements.
+Please contact the Rapid Programming Team if your IT staff members require additional technical information regarding the deployment process or access requirements.
