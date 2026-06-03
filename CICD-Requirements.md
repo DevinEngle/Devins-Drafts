@@ -26,11 +26,11 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 - Operate without being blocked, quarantined, rolled back, or otherwise interrupted by endpoint protection, anti-malware, application control, or similar security software.
 - Complete deployments without requiring manual approval or intervention for each release.
 
-### Network Requirements
+#### Network Requirements
 
 - Communication with Azure DevOps deployment services, including <https://dev.azure.com>, must be permitted through firewalls, web filters, proxy servers, and endpoint security products.
 
-### PowerShell Requirements
+#### PowerShell Requirements
 
 - PowerShell script execution must be enabled for Rapid deployment and upgrade processes.
 - Endpoint protection, application control, and anti-malware products must not block approved Rapid deployment scripts.
@@ -73,7 +73,7 @@ Before installation or upgrade, verify that:
 
 ## Offline Station Requirements
 
-### For Clients Using Offline Stations
+#### For Clients Using Offline Stations
 
 1. Installations and upgrades require the database to be provisioned and rebuilt on all offline stations.
 
@@ -87,7 +87,7 @@ Before installation or upgrade, verify that:
 
 ## Replication Limitations
 
-### For Clients Using Replication
+#### For Clients Using Replication
 
 - CI/CD connectors are not currently supported in multi-site replication environments.
 - If you have a hub server and one or more remote servers, please consult with Rapid before requesting installation of a CI/CD connector.
