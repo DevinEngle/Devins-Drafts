@@ -4,7 +4,7 @@ _Updated June 2, 2026_
 
 ## Summary
 
-Rapid's connector platform relies on a CI/CD (Continuous Integration/Continuous Deployment) process to deliver bug fixes, security updates, compliance changes, and new functionality to your Rapid connectors.
+Rapid's connector platform relies on a CI/CD (Continuous Integration/Continuous Deployment) process to deliver bug fixes, compliance changes, and new functionality to your Rapid connectors.
 
 To receive automated updates at no additional cost, clients must allow the deployment access outlined in this document.
 
