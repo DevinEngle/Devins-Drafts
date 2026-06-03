@@ -1,6 +1,6 @@
 # CI/CD Connector Requirements for Rapid Clients
 
-_Updated June 2, 2026_
+_Updated June 3, 2026_
 
 ## Summary
 
@@ -10,7 +10,7 @@ To receive automated updates at no additional cost, clients must allow the deplo
 
 ## Table of Contents
 
-- [Billing Policy](#billing-policy)
+- [Updates and Notification Policy](#updates-and-notification-policy)
 - [Technical Requirements](#technical-requirements)
 - [Installation Requirements](#installation-requirements)
 - [Upgrade Requirements](#upgrade-requirements)
