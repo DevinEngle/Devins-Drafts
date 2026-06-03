@@ -14,9 +14,9 @@ To receive automated updates at no additional cost, clients must allow the deplo
 - [Technical Requirements](#technical-requirements)
 - [Installation Requirements](#installation-requirements)
 - [Upgrade Requirements](#upgrade-requirements)
-- [IT Checklist](#it-checklist)
 - [Offline Station Requirements](#offline-station-requirements)
 - [Replication Limitations](#replication-limitations)
+- [IT Checklist](#it-checklist)
 - [Common Causes of Failed Deployments](#common-causes-of-failed-deployments)
 - [Questions](#questions)
 
@@ -72,17 +72,6 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 
 4. Release notes and upgrade notifications will be provided at least 24 hours prior to deployment.
 
-## IT Checklist
-
-Before installation or upgrade, verify that:
-
-- Administrator access has been provided to Rapid.
-- Azure DevOps communication is permitted.
-- PowerShell execution is enabled.
-- Endpoint protection, anti-malware, and application control software will not block Rapid deployment activity.
-- All required Counterpoint users will be logged out during the deployment window.
-- Offline stations (if applicable) will be powered on and available.
-
 ## Offline Station Requirements
 
 #### For Clients Using Offline Stations
@@ -103,6 +92,17 @@ Before installation or upgrade, verify that:
 
 - CI/CD connectors are not currently supported in multi-site replication environments.
 - If you have a hub server and one or more remote servers, please consult with Rapid before requesting installation of a CI/CD connector.
+
+## IT Checklist
+
+Before installation or upgrade, verify that:
+
+- Administrator access has been provided to Rapid.
+- Azure DevOps communication is permitted.
+- PowerShell execution is enabled.
+- Endpoint protection, anti-malware, and application control software will not block Rapid deployment activity.
+- All required Counterpoint users will be logged out during the deployment window.
+- Offline stations (if applicable) will be powered on and available.
 
 ## Common Causes of Failed Deployments
 
