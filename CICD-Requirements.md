@@ -22,9 +22,11 @@ To receive automated updates at no additional cost, clients must allow the deplo
 
 ## Billing Policy
 
-Rapid will provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window.
+The monthly connector subscription fee includes periodic updates as they become available. 
 
 If an automated deployment is blocked due to client security restrictions and Rapid staff are required to perform manual installation, troubleshooting, coordination with client IT, or other deployment-related activities outside the standard CI/CD process, that work will be billed at current T&M rates.
+
+Rapid will attempt to provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window. From time to time, an important update may need to be deployed on short notice or without notice. 
 
 Our goal is to work with your IT team to establish the necessary access once so that future updates can be delivered automatically, securely, and without additional cost.
 
