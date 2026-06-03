@@ -20,7 +20,7 @@ To receive automated updates at no additional cost, clients must allow the deplo
 - [Common Causes of Failed Deployments](#common-causes-of-failed-deployments)
 - [Questions](#questions)
 
-## CIUpdates and Notification Policy dldl
+## Updates and Notification Policy
 
 The monthly connector subscription fee includes periodic updates as they become available. 
 
@@ -51,16 +51,17 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 
 ## Installation Requirements
 
-1. A version of Counterpoint and SQL Server must be installed that meets the minimum requirements for the specific connector.
-   - Exception: The _Rapid Custom Task Agent_ does not require Counterpoint to be installed.
+1. Connectors are installed on the Counterpoint server.
+   - Exception: The _Rapid Custom Task Agent_ generally is installed on the Counterpoint server but can be installed on the SQL server in certain use cases when SQL Server is not installed on the Counterpoint server.
+        
+2. A version of Counterpoint and SQL Server must be installed that meets the minimum requirements for the specific connector.
 
-2. Administrator-level connector platform access and credentials must be provided.
+3. Administrator-level connector platform access and credentials must be provided.
 
-3. Administrator-level server access must be provided for the initial installation.
+4. Administrator-level server access must be provided for the initial installation.
 
-4. Initial installation of the CI/CD connector will be scheduled with the client based on availability.
-
-5. All users must be logged out of Counterpoint during installations unless otherwise specified by Rapid.
+5. Initial installation of the CI/CD connector will be scheduled with the client based on availability.
+   - All users must be logged out of Counterpoint during installations unless otherwise specified by Rapid.
    - Installations will typically be scheduled after the close of business.
    - Exceptions: The _Rapid CP API_ and _Rapid Custom Task Agent_ can typically be installed during business hours.
 
@@ -72,13 +73,13 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 
 3. Upgrades that include database schema changes will typically be scheduled after the close of business.
 
-4. Release notes and upgrade notifications will be provided at least 24 hours prior to deployment.
+4. Rapid will attempt to provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window. From time to time, an important update may need to be deployed on short notice or without notice.
 
 ## Offline Station Requirements
 
 #### For Clients Using Offline Stations
 
-1. Installations and upgrades require the database to be provisioned and rebuilt on all offline stations.
+1. Installations and upgrades require the server database to be provisioned and rebuilt on all offline stations.
 
 2. During both the initial installation and all upgrades, all offline stations must be powered on.
 
@@ -86,13 +87,11 @@ To support automated upgrades, Rapid's Azure-based deployment platform must be p
 
 4. Users must not use Counterpoint while a rebuild is in progress.
 
-5. If a user is actively using Counterpoint when the rebuild begins, transactions and unsynchronized data from that session may be lost on that station.
-
 ## Replication Limitations
 
 #### For Clients Using Replication
 
-- CI/CD connectors are not currently supported in multi-site replication environments.
+- Certain CI/CD connectors are not currently supported in multi-site replication environments.
 - If you have a hub server and one or more remote servers, please consult with Rapid before requesting installation of a CI/CD connector.
 
 ## IT Checklist
