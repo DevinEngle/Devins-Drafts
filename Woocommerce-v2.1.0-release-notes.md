@@ -8,7 +8,7 @@ _Release Date: July 21, 2026_
 
 ### FFL Cockpit Plugin Enhancement 
 
-FFL Cockpit is a WooCommerce plugin used by firearms retailers to manage compliance-related order fulfillment and vendor drop-shipping. Clients selling firearms online through the **FFL Cockpit** plugin for WooCommerce can now have the connector automatically identify drop-ship order lines fulfilled through that plugin, rather than requiring every order line to be manually swapped to a specific item in Counterpoint.
+FFL Cockpit is a WooCommerce plugin used by firearm retailers to manage compliance-related order fulfillment and vendor drop-shipping. Clients selling firearms online through the **FFL Cockpit** plugin for WooCommerce can now have the connector automatically identify drop-ship order lines fulfilled through that plugin, rather than requiring every order line to be manually swapped to a specific item in Counterpoint.
 
 - A new configuration setting controls this behavior. It defaults to disabled, meaning existing clients will see no change in behavior unless this setting is explicitly enabled.
 - Enabling this feature requires extra effort. Reach out to Rapid for more details and a quote.
@@ -29,19 +29,28 @@ The connector will now sync a null value to WooCommerce (for custom-mapped field
 Improved how the connector updates inventory during WooCommerce order import, ensuring item quantities update reliably across all items on an order — including both parent and child (variant) items.
 - The inventory trigger (USER_TR_WOOCOMMERCE_IM_INV_UI) has been adjusted to support multi-record updates, ensuring inventory status is updated consistently for every item.
 
-### Corrected Error When Unflagging a Child Variant as an Ecommerce Item
+### Corrected Error When Unflagging a Child Variant as an Ecommerce Item (for clients using parent-child functionality)
 
-Fixed an issue where unchecking the **WooCommerce Item** flag on a child variant in Counterpoint would cause the connector to throw an error instead of removing the item from WooCommerce.
+Fixed an issue where unchecking the ecommerce/WooCommerce flag on a child variant in Counterpoint would cause the connector to throw an error instead of removing the item from WooCommerce.
 
 - WooCommerce requires product variations to be deleted through a dedicated variations endpoint, rather than the standard product deletion endpoint used for regular items.
 - The connector's item deletion logic has been updated so that child items are now correctly deleted as variations of their parent item, resolving the error and ensuring these items are properly removed from the website.
 
 ### Faster Account Creation During Connector Install
 
-Enhanced the connector's install script so that it can automatically create the necessary accounting numbers during installation, when a client is using Rapid POS's default account setup.
+Enhanced the connector's install script so that it can automatically create the necessary accounting numbers during initial installation of the connector. 
 
+- Accounts are only created when a client is using Rapid POS's default account setup.
+>| Function | Default Account | Purpose |
+>|---|---|---|
+>| WooCommerce Tender | 1302 | Records WooCommerce customer payments |
+>| WooCommerce Deposit Liabilities | 2252 | Records deposits collected on WooCommerce orders |
+>| WooCommerce Sales Tax Payable | 2312 | Records WooCommerce tax amounts |
+>| Shipping | 4950 | Records shipping charges |
+>| WooCommerce Needs Investigation | 9902 | Catch all account for unexpected activity |
 - If the client uses profit centers, the script creates the required Main accounts (if not already present), then creates Posting accounts only for the accounts that were newly created.
 - If the client does not use profit centers, the script creates the required accounts directly as both Main and Posting accounts, if not already present.
+- For more details, review: https://github.com/Rapid-POS/Rapid-Counterpoint-WooCommerce-Connector/blob/main/WooCommerce-Connector-GL-Account-Numbers.md
 
 ### Deprecated Unused Configuration Fields
 
