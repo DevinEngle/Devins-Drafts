@@ -8,19 +8,17 @@ _Release Date: July 21, 2026_
 
 ### FFL Cockpit Order Processing (`USE_FFL_COCKPIT` Config Setting)
 
-Clients selling firearms online through the **FFL Cockpit** plugin for WooCommerce can now have the connector automatically identify and process orders fulfilled through that plugin, rather than requiring every order line to be manually swapped to a placeholder item in Counterpoint.
+Clients selling firearms online through the **FFL Cockpit** plugin for WooCommerce can now have the connector automatically identify drop-ship orders fulfilled through that plugin, rather than requiring every order line to be manually swapped to a specific item in Counterpoint.
 
-FFL Cockpit is a WooCommerce plugin used by firearms retailers to manage compliance-related order fulfillment — including background checks, FFL transfers, and vendor drop-shipping — for regulated firearm sales.
+FFL Cockpit is a WooCommerce plugin used by firearms retailers to manage compliance-related order fulfillment and vendor drop-shipping.
 
-- A new configuration setting, `USER_WOOCOMMERCE_CONFIG.USE_FFL_COCKPIT`, controls this behavior. It is a boolean field (Y/N) and defaults to **N**, meaning existing clients will see no change in behavior unless this setting is explicitly enabled.
-- When `USE_FFL_COCKPIT = N` (default): the connector continues to use its standard order import logic — matching the Counterpoint Item Number to the WooCommerce SKU, and falling back to the `WOOCOMM_INTERIM_ITEM` placeholder for any line that doesn't have a match. This is unchanged from prior versions.
-- When `USE_FFL_COCKPIT = Y`: during order import, the connector inspects the `_fflc_fulfilled_items` metadata array included on the WooCommerce order (populated by the FFL Cockpit plugin). For any order line identified in that array, the connector assigns the `DROP_SHIP_FULFILL` item number instead of relying on standard item matching.
-  - This distinguishes lines that FFL Cockpit is already handling through its own fulfillment process (such as vendor drop-ship or FFL transfer) from lines that still require standard handling in Counterpoint.
-  - Order lines picked up in-store — including regulated firearm items that must be entered into a store's bound book for acquisition and disposition tracking — are **not** included in the `_fflc_fulfilled_items` array, and are therefore not auto-assigned `DROP_SHIP_FULFILL`. These continue to come through as `WOOCOMM_INTERIM_ITEM`, requiring the Counterpoint user to manually swap in the correct existing or newly created item, since serialized firearm items need to exist individually in Counterpoint for compliance recordkeeping.
+- A new configuration setting for **Use FFL Cockpit**, `USER_WOOCOMMERCE_CONFIG.USE_FFL_COCKPIT`, controls this behavior. It is a yes/no checkbox and defaults to **No**, meaning existing clients will see no change in behavior unless this setting is explicitly enabled.
+- When `USE_FFL_COCKPIT = N` (default): the connector continues to use its standard order import logic and falling back to the `WOOCOMM_INTERIM_ITEM` placeholder for any line that doesn't have a match. This is unchanged from prior versions.
+- When `USE_FFL_COCKPIT = Y`: during order import, the connector inspects the `_fflc_fulfilled_items` metadata array included on the WooCommerce order (populated by the FFL Cockpit plugin). For most order line identified as being drop-shipped from a vendor (excluding serialized firearm items that are being picked up in-store), the connector assigns the `DROP_SHIP_FULFILL` item number instead of relying on standard item matching.
+  - This distinguishes lines that FFL Cockpit is already handling through its own fulfillment process from lines that still require standard handling in Counterpoint.
+  - Regulated firearm items that must be entered into a store's bound book for acquisition and disposition tracking will not be auto-assigned `DROP_SHIP_FULFILL`. These continue to come through as `WOOCOMM_INTERIM_ITEM`, requiring the Counterpoint user to manually swap in the correct existing or newly created item, since serialized firearm items need to exist individually in Counterpoint for compliance recordkeeping. (Serialized firearms that are being drop-shipped to another FFL will use `DROP_SHIP_FULFILL` since those do not need to be entered into the Counterpoint store's inventory.)
 
 **Note:** Clients must have `DROP_SHIP_FULFILL` set up as a non-inventory item in Counterpoint prior to enabling this setting.
-
-**Known limitation:** At this time, orders created using FFL Cockpit's Drop-Ship option are not consistently marked as "fulfilled" by the plugin, which means the `_fflc_fulfilled_items` key may not always be populated for those lines. Rapid POS is continuing to work with the FFL Cockpit team on this behavior; in the interim, some Drop-Ship lines may still require manual handling in Counterpoint.
 
 ### Null Value Support for Custom Field Mapping Table
 
