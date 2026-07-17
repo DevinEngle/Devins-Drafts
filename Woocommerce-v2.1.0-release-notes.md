@@ -37,9 +37,9 @@ Fixed an issue where unchecking the ecommerce/WooCommerce flag on a child varian
 - WooCommerce requires product variations to be deleted through a dedicated variations endpoint, rather than the standard product deletion endpoint used for regular items.
 - The connector's item deletion logic has been updated so that child items are now correctly deleted as variations of their parent item, resolving the error and ensuring these items are properly removed from the website.
 
-### Updated Two Fields Related to Parent-Child Functionality to Be Keyword Searchable in Counterpoint
+### Updated Fields Related to Parent-Child Functionality to Be Keyword Searchable (for clients using parent-child functionality)
 
-The **WooCommerce Parent Item Lookup** screen (accessed from the Custom tab on an Item record) now supports keyword searching, making it faster to find a parent item without needing to know its exact item number.
+The **WooCommerce Parent Item Lookup** screen now supports keyword searching, making it faster to find a parent item without needing to know its exact item number.
 
 - Users can now enter a keyword in the **Keyword** field to search by **Parent Item #**, **Product Name**, or **Description** — a minimum of 3 characters is required to return results.
 - Added keyword fields to the `USER_WOOCOMMERCE_PARENT_IM_ITEM` and `USER_WOOCOMMERCE_PRODUCT_OPTION_VALUE` tables to support this search functionality.
