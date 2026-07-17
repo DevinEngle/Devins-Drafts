@@ -6,7 +6,7 @@ _Release Date: July 21, 2026_
 
 ## New Functionality
 
-### FFL Cockpit Plugin Enhancement 
+### FFL Cockpit Plugin Enhancement
 
 FFL Cockpit is a WooCommerce plugin used by firearm retailers to manage compliance-related order fulfillment and vendor drop-shipping. Clients selling firearms online through the **FFL Cockpit** plugin for WooCommerce can now have the connector automatically identify drop-ship order lines fulfilled through that plugin, rather than requiring every order line to be manually swapped to a specific item in Counterpoint.
 
@@ -27,7 +27,8 @@ The connector will now sync a null value to WooCommerce (for custom-mapped field
 ### Optimized WooCommerce Order Import for Multi-Item Inventory Updates
 
 Improved how the connector updates inventory during WooCommerce order import, ensuring item quantities update reliably across all items on an order — including both parent and child (variant) items.
-- The inventory trigger (USER_TR_WOOCOMMERCE_IM_INV_UI) has been adjusted to support multi-record updates, ensuring inventory status is updated consistently for every item.
+
+- The inventory trigger (`USER_TR_WOOCOMMERCE_IM_INV_UI`) has been adjusted to support multi-record updates, ensuring inventory status is updated consistently for every item.
 
 ### Corrected Error When Unflagging a Child Variant as an Ecommerce Item (for clients using parent-child functionality)
 
@@ -36,9 +37,16 @@ Fixed an issue where unchecking the ecommerce/WooCommerce flag on a child varian
 - WooCommerce requires product variations to be deleted through a dedicated variations endpoint, rather than the standard product deletion endpoint used for regular items.
 - The connector's item deletion logic has been updated so that child items are now correctly deleted as variations of their parent item, resolving the error and ensuring these items are properly removed from the website.
 
+### Updated Two Fields Related to Parent-Child Functionality to Be Keyword Searchable in Counterpoint
+
+The **WooCommerce Parent Item Lookup** screen (accessed from the Custom tab on an Item record) now supports keyword searching, making it faster to find a parent item without needing to know its exact item number.
+
+- Users can now enter a keyword in the **Keyword** field to search by **Parent Item #**, **Product Name**, or **Description** — a minimum of 3 characters is required to return results.
+- Added keyword fields to the `USER_WOOCOMMERCE_PARENT_IM_ITEM` and `USER_WOOCOMMERCE_PRODUCT_OPTION_VALUE` tables to support this search functionality.
+
 ### Faster Account Creation During Connector Install
 
-Enhanced the connector's install script so that it can automatically create the necessary accounting numbers during initial installation of the connector. 
+Enhanced the connector's install script so that it can automatically create the necessary accounting numbers during initial installation of the connector.
 
 - Accounts are only created when a client is using Rapid POS's default account setup.
 >| Function | Default Account | Purpose |
