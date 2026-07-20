@@ -1,6 +1,6 @@
-# RCTA vX.XX.XX Release Notes
+# RCTA v1.01.32 Release Notes
 
-_Release Date: TBD_
+_Release Date: July 23, 2026_
 
 ---
 
