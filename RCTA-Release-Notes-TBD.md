@@ -1,9 +1,10 @@
-## RCTA vX.XX.XX (TBD)
+# RCTA vX.XX.XX Release Notes
+
 _Release Date: TBD_
 
 ---
 
-## Bug Fixes
+## Bug Fixes and Performance Enhancements
 
 ### Corrected Misleading "Invalid CC Address" Error When Saving a New Scheduled Report
 Resolved an issue where saving a new scheduled report could fail with an error indicating an invalid CC address, even when the CC address field was empty.
