@@ -55,7 +55,7 @@ The code responsible for creating gift cards in Counterpoint from those digital 
 
 - Ensures digital "emailed" gift cards generated through Loopz continue to import correctly into Counterpoint as clients move to Shopify v3.
 
-### Alt Unit Validation for Shopify Item Records
+### Alternate Unit Validation for Shopify Item Records
 
 The connector now validates alt unit selections before syncing to Shopify. If a selected alt unit doesn't actually exist on the item record, the connector automatically unchecks that alt unit's sync checkbox instead of sending it to Shopify.
 
