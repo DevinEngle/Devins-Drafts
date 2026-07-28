@@ -57,7 +57,7 @@ The code responsible for creating gift cards in Counterpoint from those digital 
 
 ### Alternate Unit Validation for Shopify Item Records
 
-The connector now validates alt unit selections before syncing to Shopify. If a selected alt unit doesn't actually exist on the item record, the connector automatically unchecks that alt unit's sync checkbox instead of sending it to Shopify.
+The connector now validates alternate unit ("alt unit") selections on Shopify Item Records before syncing to Shopify. Previously, if a user selected an alt unit checkbox that didn't actually correspond to an existing alt unit on the item record, that nonexistent alt unit would sync to Shopify as a variant priced at $0. The connector now catches this and automatically unchecks the box instead.
 
-- Prevents a nonexistent alt unit from being synced as a Shopify variant with a $0 price.
-- Alt units that do exist continue to sync correctly as Shopify variants when selected.
+- Prevents a $0 variant from being created in Shopify due to an alt unit checkbox being selected in error.
+- Alt units that do exist on the item record continue to sync correctly as Shopify variants when selected.
