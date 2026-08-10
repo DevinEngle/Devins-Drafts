@@ -8,7 +8,7 @@ _Release Date: August 12, 2026_
 
 ### Order Download Failure on Orders with Refunded Line Items
 
-Some orders with discounted line items were failing to download from Shopify due to a database error on the discount table (PS_DOC_DISC). This happened when an order included a line item that had been fully refunded down to a zero quantity, which caused the connector to attempt to insert a discount record for the 0 quantity item and fail the download.
+Some orders with discounted line items were failing to download from Shopify due to a database error on the discount table (`PS_DOC_DISC`). This happened when an order included a line item that had been fully refunded down to a zero quantity, which caused the connector to attempt to insert a discount record for the 0 quantity item and fail the download.
 
 - The connector's order creation process now excludes line items with a current quantity of 0 when building the order, preventing that discount record from being created.
 - This resolves order download errors such as "Violation of PRIMARY KEY constraint 'PK_PS_DOC_DISC'. Cannot insert duplicate key in object 'dbo.PS_DOC_DISC'."
