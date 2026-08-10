@@ -6,7 +6,7 @@ _Release Date: August 11, 2026_
 
 ## Bug Fixes and Performance Enhancements
 
-### Friendlier Error Message for Product Variations Removed Directly in WooCommerce
+### Friendly Error Message for Product Variations Removed Directly in WooCommerce
 
 If a product variation was deleted directly in WooCommerce before the sync could remove it, the connector now logs a plain-language (friendly) message instead of a technical error.
 
