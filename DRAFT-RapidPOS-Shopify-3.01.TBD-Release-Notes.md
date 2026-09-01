@@ -17,7 +17,7 @@ The default configuration for the Shopify Station (usually 201-01) and for the `
 
 As database fields used by the connector are renamed or retired over time, custom triggers and stored procedures created outside the standard install script can continue to reference the old field names without anyone noticing.
 
-- After each initial CI/CD deployment, the release pipeline now scans triggers and stored procedures that are outside the standard install script, meaning client-customized database objects, for references to deprecated Shopify connector fields.
+- During each CI/CD upgrade, the release pipeline now scans triggers and stored procedures that are outside the standard install script, meaning client-customized database objects, for references to deprecated Shopify connector fields.
 - If a deprecated field reference is found in one of these custom objects, an email notification is sent in addition to the pipeline log message.
 
 ### Promotional Prices Not Refreshing When a Price Group Is Re-enabled
