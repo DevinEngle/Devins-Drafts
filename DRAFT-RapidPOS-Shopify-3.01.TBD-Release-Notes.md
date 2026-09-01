@@ -11,7 +11,7 @@ _Release Date: September 8, 2026_
 The default configuration for the Shopify Station (usually 201-01) and for the `EC_SHOPIFY` customer record, which is used as a template whenever a new customer is created by the Shopify connector, has been adjusted for better performance.
 
 - The install script now sets the Shopify Station's `Begin Tickets At` setting to Lines and unchecks `Use Default Customer`. This allows the Touchscreen application to open at this station without prompting for a customer selection, so a user can see orders for any customer instead of having the order list filtered to a single customer number.
-- The `EC_SHOPIFY` customer will now always have `Allow Tickets` and `Allow Orders` checked by default, ensuring that customers created from the `EC_SHOPIFY` template have the ability to process tickets and orders.
+- The `EC_SHOPIFY` customer will have `Allow Tickets` and `Allow Orders` checked by default, ensuring that customers created from the `EC_SHOPIFY` template have the ability to process tickets and orders.
 
 ### Automatic Detection of Deprecated Field References in Custom Database Objects
 
