@@ -1,6 +1,6 @@
 # Shopify Connector vTBD Release Notes
 
-_Release Date: September 8, 2026_
+_Release Date: September 9, 2026_
 
 ---
 
