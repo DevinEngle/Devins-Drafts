@@ -32,3 +32,10 @@ Previously, if a Shopify Item Record had Sales Channel - Point of Sale enabled (
 
 - The item publication logic has been refactored to add checks for missing "Point of Sale" and "Online Store" sales channel publication data, which prevents this error from occurring.
 - When the Point of Sale sales channel is not configured for a store, the connector now logs a friendly message identifying the affected item and automatically disables Sales Channel - Point of Sale for that item, so it can continue to sync normally.
+
+### Order Download Failure When a Shopify Line Item Incorrectly Matches a Gridded Item
+
+Previously, when downloading orders from Shopify, if a line item's Shopify SKU matched a barcode linked to a gridded item in Counterpoint, but the Shopify line item was not actually a variant (it was a simple product on Shopify), the connector failed with a generic technical error (a null reference exception). This stopped the entire order download from completing, so any remaining orders in that batch were not downloaded either.
+
+- The connector now checks whether a Shopify line item has variant information before matching it against a gridded item in Counterpoint, which prevents this error.
+- When this kind of mismatch is detected, the connector now skips only the affected order and logs a friendly message identifying the Shopify SKU and product along with the mismatched Counterpoint item, so the remaining orders in the batch continue to download normally.
