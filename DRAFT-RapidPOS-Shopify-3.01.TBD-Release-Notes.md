@@ -35,7 +35,10 @@ Previously, if a Shopify Item Record had Sales Channel - Point of Sale enabled (
 
 ### Order Download Failure When a Shopify Line Item Incorrectly Matches a Gridded Item
 
-Previously, when downloading orders from Shopify, if a line item's Shopify SKU matched a barcode linked to a gridded item in Counterpoint, but the Shopify line item was not actually a variant (it was a simple product on Shopify), the connector failed with a generic technical error (a null reference exception). This stopped the entire order download from completing, so any remaining orders in that batch were not downloaded either.
+Previously, when downloading orders from Shopify, if an order line's Shopify SKU matched a barcode linked to a gridded item in Counterpoint, but the connector could not match the Shopify variant to one of that item's grid cells, it failed with a generic technical error (a null reference exception). This caused the connector's order download process to stop entirely, so any other orders still waiting to be downloaded in that batch were not downloaded either.
+ 
+This can happen when the Match by Barcode setting (`MATCH_BY_BARCOD`) is enabled and is used as a fallback after the Shopify Variant ID and Shopify Product ID fail to find a match. If a Shopify SKU falls back to matching a barcode that belongs to a gridded (variant) item in Counterpoint, the connector also needs the Shopify variant ID to match one of the variant IDs stored against that item's grid cells, so it can determine which grid cell the order line belongs to. When no such variant ID match exists, the connector cannot reliably assign the grid cell.
 
-- The connector now checks whether a Shopify line item has variant information before matching it against a gridded item in Counterpoint, which prevents this error.
-- When this kind of mismatch is detected, the connector now skips only the affected order and logs a friendly message identifying the Shopify SKU and product along with the mismatched Counterpoint item, so the remaining orders in the batch continue to download normally.
+- The connector now checks for this condition and, when it is detected, skips only the affected order instead of stopping the connector's order download process entirely.
+- A friendly message is now logged identifying the Shopify SKU and product along with the mismatched Counterpoint item, so the cause is clear and the remaining orders in the batch continue to download normally.
+
