@@ -1,4 +1,4 @@
-# Shopify Connector vTBD Release Notes
+# Shopify Connector v3.01.09 Release Notes
 
 _Release Date: September 9, 2026_
 
