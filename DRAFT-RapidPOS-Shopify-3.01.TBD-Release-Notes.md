@@ -4,6 +4,16 @@ _Release Date: September 9, 2026_
 
 ---
 
+## Documentation Updates
+
+### Subcategory Filtering for Promotional Price Rules
+
+The Using Calculated Prices guide did not previously document that a Promotional Price rule's item filter can target a **single item category paired with one of its _subcategories_**, in addition to filtering by item number or by item category alone. This capability has always been supported by the Calculated Price method, but was not previously documented.
+
+If Calculated Prices is used for Shopify promotional pricing, and a promotion needs to target a specific subcategory within a category, see the [Using Calculated Prices guide](https://github.com/Rapid-POS/Rapid-Counterpoint-Shopify-Connector/blob/main/Using-Calculated-Prices.md) for configuration details.
+
+---
+
 ## Bug Fixes and Performance Enhancements
 
 ### Adjusted Shopify Station and EC_SHOPIFY Customer Configuration for Better Performance
@@ -26,6 +36,12 @@ This applies only to clients using the Calculated Prices configuration option fo
 
 - The `USER_TR_SHOPIFY_IM_PRC_RUL_U` trigger has been corrected so that it properly calls the `USER_SP_SHOPIFY_UPDATE_PROMO_PRICES` stored procedure when promotional price rules change, including when a previously disabled price group is enabled again. This keeps the `USER_SHOPIFY_PROMO_WRK` table, and the promotional prices synced to Shopify from it, up to date.
 
+### Promotional Prices Not Reverting When a Price Rule's Categories Are Edited
+
+This applies only to clients using the Calculated Prices configuration option for Shopify Product Price (`ITEM_PRC_METH`). For those clients, if a Counterpoint price rule used for Shopify promotional pricing was edited after it had synced to Shopify, specifically by removing one of its categories, or by adding a subcategory qualifier to an existing category, the connector did not correctly remove the promotional price from items that were no longer covered by the rule. Those items kept showing the old promotional price on Shopify even though the rule no longer applied to them.
+
+- The `USER_TR_SHOPIFY_PROMO_WRK_D` and `USER_TR_SHOPIFY_IM_PRC_RUL_U` triggers have been corrected, and a new `USER_TR_SHOPIFY_IM_PRC_GRP_D` trigger has been added, so that items removed from a price rule's category or subcategory scope have their promotional price cleared correctly.
+
 ### Friendly Error Message for Misconfigured Point of Sale Sales Channel
 
 Previously, if a Shopify Item Record had Sales Channel - Point of Sale enabled (`USER_SHOPIFY_ITEMS.USER_SHOPIFY_SALES_CHANNEL_POS` = 'Y') for a store where the Point of Sale sales channel does not exist in Shopify, the connector failed with a generic technical error (a null reference exception) when syncing that item. The affected item would remain stuck without receiving updated price and quantity information.
@@ -41,4 +57,3 @@ This can happen when the Match by Barcode setting (`MATCH_BY_BARCOD`) is enabled
 
 - The connector now checks for this condition and, when it is detected, skips only the affected order instead of stopping the connector's order download process entirely.
 - A friendly message is now logged identifying the Shopify SKU and product along with the mismatched Counterpoint item, so the cause is clear and the remaining orders in the batch continue to download normally.
-
