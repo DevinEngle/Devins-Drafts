@@ -14,7 +14,7 @@ This applies only to clients using the Calculated Prices configuration option fo
 - A new Shopify Promo Prices form and menu item display the item number, item description, item price 1, the associated promotional price group code, the category and subcategory, and the calculated price being pushed to Shopify.
 - The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
 
-### Resync Shopify Items by Promotional Price Group
+### Refresh Shopify Items by Promotional Price Group
 
 This applies only to clients using the Calculated Prices configuration option for Shopify Product Price (`ITEM_PRC_METH`). A new menu item allows the items in a specific promotional price group to be resynced to Shopify on demand, without requiring a full item resync.
 
