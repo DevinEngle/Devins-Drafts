@@ -24,6 +24,7 @@ This applies **only to clients using the Calculated Prices configuration option*
   - Shopify Promo Status (the sync status of the item specific to the promotional price work table)
 - The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
 - A record appears on this table whenever a price rule is enabled and the end date has not yet passed. This means a record will exist even for a promotional price that has not started yet, since it is scheduled to sync in the future.
+- If an item is included in multiple price rules, it will appear on this table multiple times. 
 
 ### Refresh Shopify Items by Promotional Price Group
 
@@ -41,16 +42,16 @@ This applies **only to clients using the Calculated Prices configuration option*
 
 As more menu items have been added to the Shopify menu over time, they had accumulated into a large, unorganized group. The Shopify menu has been reorganized into folders to make it easier to find related items.
 
-- A new Shopify Configuration Tools folder contains Shopify Configuration, Shopify Custom Field Mapping, Shopify Locations, and Shopify Customer Matching Priority.
-- A new Shopify Other folder contains Shopify Promo Prices and Shopify Promo Prices Refresh.
-- The most frequently used items, Shopify Items, Shopify Bulk Item Setup, Shopify Items Status View, Shopify Item Variants, Shopify Customers, Mark All Shopify Messages as Read, and Run Shopify Connector, remain at the top level of the Shopify menu for quick access.
+- The most frequently used items, Shopify Items, Shopify Bulk Item Setup, Shopify Items Status View, Shopify Item Variants, Shopify Customers, Mark All Shopify Messages as Read, and Run Shopify Connector, **remain at the top level** of the Shopify menu for quick access.
+- A new **Shopify Configuration Tools** folder contains Shopify Configuration, Shopify Custom Field Mapping, Shopify Locations, and Shopify Customer Matching Priority.
+- A new **Shopify Other** folder currently contains Shopify Promo Prices and Shopify Promo Prices Refresh.
 
 ### Windows Service Not Recovering After a SQL Server Restart or Reboot
 
 Previously, the connector's Windows Service opened a single SQL connection at startup and shared that same connection for the entire lifetime of the process. If the connection was broken, for example by a SQL Server restart, reboot, or network interruption, the connector had no way to reconnect. Every scheduled sync for every configured account would continue to fail until a user manually restarted the Windows Service.
 
 - The connector's `CommonService`, `CustomerInterface`, `ItemInterface`, `OrderInterface`, and `RunService` classes now use an `IDbConnectionFactory` to open a new database connection at the start of every sync cycle, and dispose of it when the cycle finishes, instead of sharing one connection for the life of the Windows Service process.
-- If the SQL Server connection is lost, only the sync cycle in progress at that moment is affected. The next scheduled cycle automatically opens a new, healthy connection, so the Windows Service no longer needs to be manually restarted to recover.
+- If the SQL Server connection is lost, only the sync cycle in progress at that moment is affected. The next scheduled cycle automatically opens a new connection, so the Windows Service no longer needs to be manually restarted to recover.
 - A related timing issue has also been corrected so that two overlapping scheduled runs can no longer both start at the same time while a previous run is still finishing.
 
 ### Incorrect Run Type Logged When a Sync Job Is Skipped
