@@ -11,16 +11,26 @@ _Release Date: September 23, 2026_
 This applies **only to clients using the Calculated Prices configuration option** for Shopify Product Price (`ITEM_PRC_METH`). A new view and Counterpoint form now make it possible to see, directly in the user interface, which items have a Shopify Item Record and are also included in a promotional price group with a calculated price being synced to Shopify.
 
 - A new `USER_VI_USER_SHOPIFY_PROMO_WRK` view has been added, built on the `USER_SHOPIFY_PROMO_WRK` table, to expose the items affected by Shopify promotional pricing.
-- A new Shopify Promo Prices form and menu item display the promotional price group code, item number, item description, item category and subcategory, item price 1, promotional price method (amount or percent), the value of the amount or percent, the calculated price being pushed to Shopify, the promotional begin and end dates and/or no date flags, as well as the Shopify Promo Status (this is the sync status of the item specific to the promotional price work table).
+- A new Shopify Promo Prices form and menu item display the following columns:
+  - Promotional price group code
+  - Item number
+  - Item description
+  - Item category and subcategory
+  - Item price 1
+  - Promotional price method (amount or percent)
+  - The value of the amount or percent
+  - The calculated price being pushed to Shopify
+  - The promotional begin and end dates, and/or no date flags
+  - Shopify Promo Status (the sync status of the item specific to the promotional price work table)
 - The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
-- If a price rule is enabled AND the end date has not yet passed, then there will be a record on this table. Therefore, there will be a record even for promotional prices that have not yet started because they will be synced in the future. 
+- A record appears on this table whenever a price rule is enabled and the end date has not yet passed. This means a record will exist even for a promotional price that has not started yet, since it is scheduled to sync in the future.
 
 ### Refresh Shopify Items by Promotional Price Group
 
 This applies **only to clients using the Calculated Prices configuration option** for Shopify Product Price (`ITEM_PRC_METH`). A new menu item allows the items in a specific promotional price group to be resynced to Shopify on demand, without requiring a full item resync.
 
-- A new Shopify Promo Prices Refresh menu item runs a custom program that refreshes only the Shopify items in a specified promotional price group, using the group code as a filter. 
-- The new `USER_SP_SHOPIFY_REFRESH_PROMO_PRICES` stored procedure wraps `USER_SP_SHOPIFY_UPDATE_PROMO_PRICES` and accepts the group code as a parameter, so all of the Shopify items in that specific group are refreshed (their Shopify Promo (Sync) Status is set to 1. These items will then resync to Shopify on the next run of the connector. 
+- A new Shopify Promo Prices Refresh menu item runs a custom program that refreshes only the Shopify items in a specified promotional price group, using the group code as a filter.
+- The new `USER_SP_SHOPIFY_REFRESH_PROMO_PRICES` stored procedure wraps `USER_SP_SHOPIFY_UPDATE_PROMO_PRICES` and accepts the group code as a parameter. This sets the Shopify Promo Status to 1 for all Shopify items in that group, so those items resync to Shopify on the next run of the connector.
 - The Shopify Promo Prices Refresh menu item is located in the new Shopify Other folder in the Shopify menu.
 
 ---
