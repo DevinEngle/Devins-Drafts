@@ -1,6 +1,6 @@
 # Shopify Connector v3.02.00 Release Notes
 
-_Release Date: September TBD, 2026_
+_Release Date: September 23, 2026_
 
 ---
 
@@ -8,18 +8,19 @@ _Release Date: September TBD, 2026_
 
 ### Visibility into Shopify Items Included in Promotional Price Groups
 
-This applies only to clients using the Calculated Prices configuration option for Shopify Product Price (`ITEM_PRC_METH`). A new view and Counterpoint form now make it possible to see, directly in the user interface, which items have a Shopify Item Record and are also included in a promotional price group with a calculated price being synced to Shopify.
+This applies **only to clients using the Calculated Prices configuration option** for Shopify Product Price (`ITEM_PRC_METH`). A new view and Counterpoint form now make it possible to see, directly in the user interface, which items have a Shopify Item Record and are also included in a promotional price group with a calculated price being synced to Shopify.
 
 - A new `USER_VI_USER_SHOPIFY_PROMO_WRK` view has been added, built on the `USER_SHOPIFY_PROMO_WRK` table, to expose the items affected by Shopify promotional pricing.
-- A new Shopify Promo Prices form and menu item display the item number, item description, item price 1, the associated promotional price group code, the category and subcategory, and the calculated price being pushed to Shopify.
+- A new Shopify Promo Prices form and menu item display the promotional price group code, item number, item description, item category and subcategory, item price 1, promotional price method (amount or percent), the value of the amount or percent, the calculated price being pushed to Shopify, the promotional begin and end dates and/or no date flags, as well as the Shopify Promo Status (this is the sync status of the item specific to the promotional price work table).
 - The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
+- If a price rule is enabled AND the end date has not yet passed, then there will be a record on this table. Therefore, there will be a record even for promotional prices that have not yet started because they will be synced in the future. 
 
 ### Refresh Shopify Items by Promotional Price Group
 
-This applies only to clients using the Calculated Prices configuration option for Shopify Product Price (`ITEM_PRC_METH`). A new menu item allows the items in a specific promotional price group to be resynced to Shopify on demand, without requiring a full item resync.
+This applies **only to clients using the Calculated Prices configuration option** for Shopify Product Price (`ITEM_PRC_METH`). A new menu item allows the items in a specific promotional price group to be resynced to Shopify on demand, without requiring a full item resync.
 
-- A new Shopify Promo Prices Refresh menu item runs a custom program that resyncs only the Shopify items in a specified promotional price group, using the group code as a filter.
-- The new `USER_SP_SHOPIFY_REFRESH_PROMO_PRICES` stored procedure wraps `USER_SP_SHOPIFY_UPDATE_PROMO_PRICES` and accepts the group code as a parameter, so only the Shopify items in that group are flagged with a sync status of 1.
+- A new Shopify Promo Prices Refresh menu item runs a custom program that refreshes only the Shopify items in a specified promotional price group, using the group code as a filter. 
+- The new `USER_SP_SHOPIFY_REFRESH_PROMO_PRICES` stored procedure wraps `USER_SP_SHOPIFY_UPDATE_PROMO_PRICES` and accepts the group code as a parameter, so all of the Shopify items in that specific group are refreshed (their Shopify Promo (Sync) Status is set to 1. These items will then resync to Shopify on the next run of the connector. 
 - The Shopify Promo Prices Refresh menu item is located in the new Shopify Other folder in the Shopify menu.
 
 ---
@@ -36,7 +37,7 @@ As more menu items have been added to the Shopify menu over time, they had accum
 
 ### Windows Service Not Recovering After a SQL Server Restart or Reboot
 
-Previously, the connector's Windows Service opened a single SQL connection at startup and shared that same connection for the entire lifetime of the process. If the connection was broken, for example by a SQL Server restart, reboot, or network interruption, the connector had no way to reconnect. Every scheduled sync for every configured account would continue to fail until someone manually restarted the Windows Service.
+Previously, the connector's Windows Service opened a single SQL connection at startup and shared that same connection for the entire lifetime of the process. If the connection was broken, for example by a SQL Server restart, reboot, or network interruption, the connector had no way to reconnect. Every scheduled sync for every configured account would continue to fail until a user manually restarted the Windows Service.
 
 - The connector's `CommonService`, `CustomerInterface`, `ItemInterface`, `OrderInterface`, and `RunService` classes now use an `IDbConnectionFactory` to open a new database connection at the start of every sync cycle, and dispose of it when the cycle finishes, instead of sharing one connection for the life of the Windows Service process.
 - If the SQL Server connection is lost, only the sync cycle in progress at that moment is affected. The next scheduled cycle automatically opens a new, healthy connection, so the Windows Service no longer needs to be manually restarted to recover.
