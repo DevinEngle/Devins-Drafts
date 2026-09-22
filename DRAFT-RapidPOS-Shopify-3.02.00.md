@@ -39,7 +39,7 @@ This applies **only to clients using the Calculated Prices configuration option*
 
 ### Shopify Menu Items Reorganized into Folders
 
-As more menu items have been added to the Shopify menu over time, they had accumulated into a single large, unorganized group. The Shopify menu has been reorganized into folders to make it easier to find related items.
+As more menu items have been added to the Shopify menu over time, they had accumulated into a large, unorganized group. The Shopify menu has been reorganized into folders to make it easier to find related items.
 
 - A new Shopify Configuration Tools folder contains Shopify Configuration, Shopify Custom Field Mapping, Shopify Locations, and Shopify Customer Matching Priority.
 - A new Shopify Other folder contains Shopify Promo Prices and Shopify Promo Prices Refresh.
