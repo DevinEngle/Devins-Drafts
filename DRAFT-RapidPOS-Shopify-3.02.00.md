@@ -22,9 +22,9 @@ This applies **only to clients using the Calculated Prices configuration option*
   - The calculated price being pushed to Shopify
   - The promotional begin and end dates, and/or no date flags
   - Shopify Promo Status (the sync status of the item specific to the promotional price work table)
-- The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
 - A record appears on this table whenever a price rule is enabled and the end date has not yet passed. This means a record will exist even for a promotional price that has not started yet, since it is scheduled to sync in the future.
-- If an item is included in multiple price rules, it will appear on this table multiple times. 
+- If an item is included in multiple price rules, it will appear on this table multiple times.
+- The Shopify Promo Prices menu item is located in the new Shopify Other folder in the Shopify menu.
 
 ### Refresh Shopify Items by Promotional Price Group
 
