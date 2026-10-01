@@ -71,17 +71,17 @@ The ticket number is the lookup key. Each release ticket has its own number, mad
 | Counterpoint Field | UPS WorldShip Section | UPS WorldShip Field |
 |---|---|---|
 | Document ID | Shipment Information | Unique Shipment Identifier |
-| Ticket Number | Shipment Information | Reference 1 |
+| Release Ticket Number | Shipment Information | Reference 1 |
 | Ship-To Email Address 1 | Shipment Information | Recipient Email Address |
 | Ship-To Customer Number | Ship To | Customer ID |
 | Ship-To Name | Ship To | Company or Name |
 | Ship-To Address 1 | Ship To | Address 1 |
 | Ship-To Address 2 | Ship To | Address 2 |
 | Ship-To Address 3 | Ship To | Address 3 |
-| Ship-To Country | Ship To | Country/Territory |
-| Ship-To Zip Code | Ship To | Postcode |
 | Ship-To City | Ship To | City or Town |
 | Ship-To State/Province | Ship To | State/Province/County |
+| Ship-To Zip Code | Ship To | Postcode |
+| Ship-To Country | Ship To | Country/Territory |
 | Ship-To Phone 1 | Ship To | Telephone |
 | Ship-To Email Address 1 | Ship To | Email Address |
 
