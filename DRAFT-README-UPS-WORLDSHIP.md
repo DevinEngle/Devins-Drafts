@@ -1,4 +1,4 @@
-# Rapid POS Support for UPS WorldShip Shipping Software
+# Rapid POS UPS WorldShip ODBC Support
 Updated 10/1/2026
 
 ---
@@ -8,13 +8,13 @@ Rapid provides support for the UPS WorldShip shipping software (desktop app) to 
 ---
 
 ## Minimum System Requirements:
-- Minimum Counterpoint version: **8.5.6.2**  
-- Minimum SQL Server version: **2016**  
-- Minimum Supported Operating System version: **Windows Server 2016** or **Windows 11 Pro** 
-- Minimum PowerShell version: **5.1**  
+- Minimum Counterpoint version: **8.5.6.2**
+- Minimum SQL Server version: **2016**
+- Minimum Supported Operating System version: **Windows Server 2016** or **Windows 11 Pro**
+- Minimum PowerShell version: **5.1**
 - Counterpoint must be installed on the same computer as the UPS WorldShip shipping software (desktop app)
-- 
-If you would like the UPS WorldShip ODBC app but your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
+
+If you would like the UPS WorldShip ODBC connection but your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
 
 ---
 
@@ -30,7 +30,7 @@ If you would like the UPS WorldShip ODBC app but your system does not meet these
 
 ---
 
-## Section 1: Overview of the information provided to UPS WorldShip
+## SECTION 1: Overview of the information provided to UPS WorldShip by the ODBC connection
 
 A custom view in the Counterpoint database makes information from one type of Counterpoint document available to UPS WorldShip: order release tickets with a ship-to address.
 
@@ -50,7 +50,7 @@ UPS WorldShip uses a 32-bit ODBC connection. The data source must be created in 
 
 ### Data Flow to UPS WorldShip
 
-UPS WorldShip reads the release ticket information from the Counterpoint database through the ODBC connection. A release ticket is available to UPS WorldShip as soon as it is created in Counterpoint. 
+UPS WorldShip reads the release ticket information from the Counterpoint database through the ODBC connection. A release ticket is available to UPS WorldShip as soon as it is created in Counterpoint.
 
 ---
 
@@ -61,6 +61,8 @@ UPS WorldShip reads the release ticket information from the Counterpoint databas
 3. The shipper confirms the package details, such as weight and service, and processes the shipment.
 
 The ticket number is the lookup key. Each release ticket has its own number, made up of the order number and a sequence number. For example, an order shipped in three parts has release tickets 1234-01, 1234-02, and 1234-03.
+
+---
 
 ## SECTION 3: Mapping of specific fields sent to UPS WorldShip for release tickets
 
@@ -83,7 +85,7 @@ The ticket number is the lookup key. Each release ticket has its own number, mad
 | Ship-To Phone 1 | Ship To | Telephone |
 | Ship-To Email Address 1 | Ship To | Email Address |
 
-NOTE: Ship-To Email Address 1 is intentionally mapped to two UPS WorldShip fields.
+NOTE: Ship-To Email Address 1 is intentionally mapped to two UPS WorldShip fields. This mapping can be adjusted by request.
 
 ---
 
@@ -121,4 +123,4 @@ Enter the ship-to country on the release ticket in Counterpoint as a two-letter 
 
 The UPS WorldShip ODBC connection streamlines the transfer of order shipping information from release tickets to UPS WorldShip. This reduces manual entry and helps shipments move efficiently.
 
-If you have questions about setup, troubleshooting, or advanced options, please reach out to support.
+If you have questions about setup, troubleshooting, or advanced options, please contact Rapid Support.
