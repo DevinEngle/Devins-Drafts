@@ -1,4 +1,4 @@
-# Rapid POS UPS WorldShip ODBC Support
+# Rapid POS Support for UPS WorldShip Shipping Software
 Updated 10/1/2026
 
 ---
