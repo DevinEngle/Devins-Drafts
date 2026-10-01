@@ -31,7 +31,7 @@ If you would like the UPS WorldShip ODBC connection but your system does not mee
 
 ## SECTION 1: Overview of the information provided to UPS WorldShip by the ODBC connection
 
-A custom view in the Counterpoint database makes information from order release tickets with a ship-to address available to UPS WorldShip.
+A custom view in the Counterpoint database makes information from **order release tickets with a ship-to address** available to UPS WorldShip.
 
 A custom view is a saved, filtered list that Rapid creates in the Counterpoint database. It does not give UPS WorldShip access to all Counterpoint data. Instead, it:
 - Includes only unposted (open) order release tickets that have a ship-to address
