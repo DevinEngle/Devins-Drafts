@@ -11,7 +11,6 @@ Rapid provides support for the UPS WorldShip shipping software (desktop app) to 
 - Minimum Counterpoint version: **8.5.6.2**
 - Minimum SQL Server version: **2016**
 - Minimum Supported Operating System version: **Windows Server 2016** or **Windows 11 Pro**
-- Minimum PowerShell version: **5.1**
 - Counterpoint must be installed on the same computer as the UPS WorldShip shipping software (desktop app)
 
 If you would like the UPS WorldShip ODBC connection but your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
@@ -32,12 +31,20 @@ If you would like the UPS WorldShip ODBC connection but your system does not mee
 
 ## SECTION 1: Overview of the information provided to UPS WorldShip by the ODBC connection
 
-A custom view in the Counterpoint database makes information from one type of Counterpoint document available to UPS WorldShip: order release tickets with a ship-to address.
+A custom view in the Counterpoint database makes information from order release tickets with a ship-to address available to UPS WorldShip.
 
-With ODBC, UPS WorldShip connects to the Counterpoint database directly, over the store's local network, and reads the custom view that Rapid creates for it. The view contains information from release tickets.
+A custom view is a saved, filtered list that Rapid creates in the Counterpoint database. It does not give UPS WorldShip access to all Counterpoint data. Instead, it:
+- Includes only unposted (open) order release tickets that have a ship-to address
+- Includes only the fields listed in [SECTION 3](#section-3-mapping-of-specific-fields-sent-to-ups-worldship-for-release-tickets)
 
-UPS WorldShip uses a 32-bit ODBC connection. The data source must be created in the 32-bit ODBC Data Source Administrator in Windows, or UPS WorldShip will not see it. The following software is required on the UPS WorldShip PC:
-- Counterpoint, which must be installed on the same computer as UPS WorldShip
+The view does not store a separate copy of the data. It reads directly from Counterpoint, so a new release ticket is available to UPS WorldShip as soon as it is created.
+
+ODBC stands for Open Database Connectivity. It is a standard Windows tool that works like a bridge between a program and a database. In this setup, UPS WorldShip uses an ODBC connection to read the custom view. The shipper can work in UPS WorldShip and look up a release ticket without opening Counterpoint or copying information between the two systems.
+
+UPS WorldShip uses a 32-bit ODBC connection. The data source must be created in the 32-bit ODBC Data Source Administrator in Windows, or UPS WorldShip will not see it.
+
+The following software is required on the UPS WorldShip PC:
+- Counterpoint, which must be installed on the same computer as the UPS WorldShip shipping software (desktop app)
 - The Microsoft SQL Server ODBC driver, so that the UPS WorldShip PC can communicate with Microsoft SQL Server
 - The UPS WorldShip shipping software (desktop app), which the client will download from UPS
 
@@ -47,10 +54,6 @@ UPS WorldShip uses a 32-bit ODBC connection. The data source must be created in 
 - Only order release tickets that contain a ship-to address are provided to UPS WorldShip.
 - Only unposted (open) release tickets are available. After a release ticket is posted, it can no longer be found in UPS WorldShip.
 - Orders and regular tickets are not sent to UPS WorldShip.
-
-### Data Flow to UPS WorldShip
-
-UPS WorldShip reads the release ticket information from the Counterpoint database through the ODBC connection. A release ticket is available to UPS WorldShip as soon as it is created in Counterpoint.
 
 ---
 
