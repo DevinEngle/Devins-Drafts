@@ -39,7 +39,7 @@ A custom view is a saved, filtered list that Rapid creates in the Counterpoint d
 
 The view does not store a separate copy of the data. It reads directly from Counterpoint, so a new release ticket is available to UPS WorldShip as soon as it is created.
 
-![ODBC Bridge](./images/odbc-for-ups-worldship-graphic.png)
+![ODBC Bridge](./images/odbc-ups-worldship-graphic.png)
 
 ODBC stands for Open Database Connectivity. It is a standard Windows tool that works like a bridge between a program and a database. In this setup, UPS WorldShip uses an ODBC connection to read the custom view. The shipper can work in UPS WorldShip and look up a release ticket without opening Counterpoint or copying information between the two systems.
 
