@@ -34,7 +34,7 @@ If you would like the UPS WorldShip ODBC connection but your system does not mee
 A custom view in the Counterpoint database makes information from **order release tickets with a ship-to address** available to UPS WorldShip.
 
 A custom view is a saved, filtered list that Rapid creates in the Counterpoint database. It does not give UPS WorldShip access to all Counterpoint data. Instead, it:
-- Includes only unposted (open) order release tickets that have a ship-to address
+- Includes only unposted order release tickets that have a ship-to address
 - Includes only the fields listed in [SECTION 3](#section-3-mapping-of-specific-fields-sent-to-ups-worldship-for-release-tickets)
 
 The view does not store a separate copy of the data. It reads directly from Counterpoint, so a new release ticket is available to UPS WorldShip as soon as it is created.
@@ -54,7 +54,7 @@ The following software is required on the UPS WorldShip PC:
 
 - When an order (or part of an order) is released in Counterpoint, a release ticket is created.
 - Only order release tickets that contain a ship-to address are provided to UPS WorldShip.
-- Only unposted (open) release tickets are available. After a release ticket is posted, it can no longer be found in UPS WorldShip.
+- Only **unposted release tickets** are available. After a release ticket is posted, it can no longer be found in UPS WorldShip.
 - Orders and regular tickets are not sent to UPS WorldShip.
 
 ---
@@ -73,22 +73,22 @@ The ticket number is the lookup key. Each release ticket has its own number, mad
 
 ### Release Ticket Header Fields
 
-| Counterpoint Field | UPS WorldShip Section | UPS WorldShip Field |
-|---|---|---|
-| Document ID | Shipment Information | Unique Shipment Identifier |
-| Release Ticket Number | Shipment Information | Reference 1 |
-| Ship-To Email Address 1 | Shipment Information | Recipient Email Address |
-| Ship-To Customer Number | Ship To | Customer ID |
-| Ship-To Name | Ship To | Company or Name |
-| Ship-To Address 1 | Ship To | Address 1 |
-| Ship-To Address 2 | Ship To | Address 2 |
-| Ship-To Address 3 | Ship To | Address 3 |
-| Ship-To City | Ship To | City or Town |
-| Ship-To State/Province | Ship To | State/Province/County |
-| Ship-To Zip Code | Ship To | Postcode |
-| Ship-To Country | Ship To | Country/Territory |
-| Ship-To Phone 1 | Ship To | Telephone |
-| Ship-To Email Address 1 | Ship To | Email Address |
+| Counterpoint Field | UPS WorldShip Section | UPS WorldShip Field | Notes |
+|---|---|---|---|
+| Document ID | Shipment Information | Unique Shipment Identifier | Accepts letters and numbers. |
+| Ticket Number | Shipment Information | Reference 1 | Accepts letters, numbers, and special characters. |
+| Ship-To Email Address 1 | Shipment Information | Recipient Email Address | Must pass the [UPS email address validation](https://www.ups.com/worldshiphelp/WSA/ENU/AppHelp/mergedProjects/CORE/TASKS/Validate_Email_Addresses.htm). |
+| Ship-To Customer Number | Ship To | Customer ID | Must be unique. Accepts letters, numbers, and special characters. |
+| Ship-To Name | Ship To | Company or Name | Accepts letters, numbers, and special characters. |
+| Ship-To Address 1 | Ship To | Address 1 | Accepts letters, numbers, and special characters. |
+| Ship-To Address 2 | Ship To | Address 2 | Accepts letters, numbers, and special characters. |
+| Ship-To Address 3 | Ship To | Address 3 | Accepts letters, numbers, and special characters. |
+| Ship-To Country | Ship To | Country/Territory | Must be a two-letter [country code](#section-6-special-note-on-country-codes). |
+| Ship-To Zip Code | Ship To | Postcode | Accepts letters and numbers. Limited to 9 characters. |
+| Ship-To City | Ship To | City or Town | Accepts letters, numbers, and special characters. |
+| Ship-To State/Province | Ship To | State/Province/County | Must be a two-letter [state or province code](#section-5-special-note-on-stateprovince-abbreviations). |
+| Ship-To Phone 1 | Ship To | Telephone | Accepts letters, numbers, and special characters. |
+| Ship-To Email Address 1 | Ship To | Email Address | Must pass the [UPS email address validation](https://www.ups.com/worldshiphelp/WSA/ENU/AppHelp/mergedProjects/CORE/TASKS/Validate_Email_Addresses.htm). |
 
 NOTE: Ship-To Email Address 1 is intentionally mapped to two UPS WorldShip fields. This mapping can be adjusted by request.
 
