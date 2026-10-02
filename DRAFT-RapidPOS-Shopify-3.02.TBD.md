@@ -1,4 +1,4 @@
-# Shopify Connector v3.02.03 Release Notes
+# Shopify Connector v3.02.02 Release Notes
 
 _Release Date: October 6, 2026_
 
