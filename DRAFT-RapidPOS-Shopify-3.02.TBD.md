@@ -18,7 +18,7 @@ The connector can now import Shopify orders that have more than one discount app
 
 ### Ecommerce Fields Added to Order and Ticket Views
 
-The ecommerce fields recently added to the Counterpoint order and ticket header are now visible on a new Custom tab (and in table view). Previously, these values were stored in the database but were not easily accessed. This change makes it easy to see which ecommerce platform an order or ticket originated from and to look up the matching order in Shopify. 
+The ecommerce fields recently added to the Counterpoint order and ticket header are now visible on a new Custom tab (and in table view). Previously, these values were stored in the database but were not easily accessed. This change makes it easy to see which ecommerce platform an order or ticket originated from. 
 
 - The new **Custom tab** displays the following fields:
   - **Ecommerce Platform** (for example, `EC_SHOPIFY`)
