@@ -1,6 +1,6 @@
 # Shopify Connector v3.02.02 Release Notes
 
-_Release Date: October 6, 2026_
+_Release Date: October 8, 2026_
 
 ---
 
@@ -10,25 +10,28 @@ _Release Date: October 6, 2026_
 
 The connector can now import Shopify orders that have more than one discount applied. If the site allows customers to combine discount codes on a single Shopify order, each discount is now carried into Counterpoint accurately.
 
-- An order-wide Shopify discount (a discount that applies to the entire order) is imported as a document discount on the Counterpoint order header.
-- A product-specific Shopify discount (a discount that applies only to certain products) is imported as a line discount on each affected line item.
-- Orders that combine both types import with the document discount and line discounts applied. When the same discount code applies to multiple line items, each line receives the correct discount amount.
-- An issue found during development that caused incorrect Gross Subtotal and Total Discounts values on orders with multiple discounts has also been corrected. These values, along with tax and total, now match the Shopify order.
+- An order-wide Shopify discount (a discount that applies to the entire order) is imported as a **document discount** on the Counterpoint order.
+- A product-specific Shopify discount (a discount that applies only to certain products) is imported as a **line discount** on each affected line item.
+- Orders that combine both types now import successfully with both the relevant document discount(s) and line discount(s) applied.
+  - Additionally, when the same line discount code applies to multiple different line items, each line receives the correct discount amount.
+- An issue that caused incorrect Gross Subtotal and Total Discounts values on orders with multiple discounts has also been corrected. These values, along with tax and total, now match the Shopify order.
 
 ### Ecommerce Fields Added to Order and Ticket Views
 
-The ecommerce fields recently added to the Counterpoint order and ticket header are now visible directly in the Counterpoint user interface on a new Custom tab. Previously, these values were stored in the database but could not be easily viewed by users when reviewing orders or tickets. This makes it easy to see which ecommerce platform an order or ticket came from and to look up the matching order in Shopify.
+The ecommerce fields recently added to the Counterpoint order and ticket header are now visible on a new Custom tab (and in table view). Previously, these values were stored in the database but were not easily accessed. This change makes it easy to see which ecommerce platform an order or ticket originated from and to look up the matching order in Shopify. 
 
-- The new Custom tab displays the following fields:
-  - Ecommerce Platform (for example, `EC_SHOPIFY`)
-  - Ecommerce Order # (the order number shown in Shopify)
-  - Ecommerce Order Id (the unique ID Shopify assigns to the order)
+- The new **Custom tab** displays the following fields:
+  - **Ecommerce Platform** (for example, `EC_SHOPIFY`)
+  - **Ecommerce Order #** (the order number shown in Shopify)
+  - **Ecommerce Order Id** (the unique ID Shopify assigns to the order)
 - The Custom tab has been added to the following views:
   - View Orders (`VI_PS_DOC_HDR`)
   - View Order History (`VI_PS_ORD_HIST`)
   - View Tickets (`VI_PS_DOC_HDR`)
   - View Ticket History (`VI_PS_TKT_HIST`)
 - New data dictionary entries and custom forms have been added so that these fields display with clear labels.
+
+![Ecommerce Fields on View Orders](images/counterpoint-view-orders-custom-tab-ecommerce-fields.png)
 
 ---
 
