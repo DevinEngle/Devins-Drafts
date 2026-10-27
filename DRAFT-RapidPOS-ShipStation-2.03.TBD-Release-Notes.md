@@ -11,9 +11,8 @@ _Release Date: October 28, 2026_
 When the **Billing Name** or **Shipping Name** on a release ticket is blank, the connector now uses the first and last name from that address before falling back to the customer name. This helps orders in ShipStation show the name of the person the order is for, rather than a general customer account name.
 
 - The **Sold To Name** in ShipStation is now filled in using the first available value in this order: **Billing Name**, billing **First Name** and **Last Name**, customer name, and then customer first and last name.
-- The **Ship To Name** follows the same order, starting with the **Shipping Name** and then the shipping **First Name** and **Last Name**.
+- The **Ship To Name** follows the same order, starting with the **Shipping Name** and then the shipping **First Name** and **Last Name**, customer name, and then customer first and last name.
 - If only a first name or only a last name is entered, that name is used rather than skipping ahead to the customer name.
-- Previously, if a ship-to address had a first and last name but no **Shipping Name**, the order was sent to ShipStation under the customer name. The ship-to first and last name is now used instead.
 - If no name is available at any level, the name is now sent to ShipStation as an empty value rather than as a single space.
 
 For a full list of fields sent to ShipStation, see the [ShipStation Connector documentation]({{DOCUMENTATION_LINK}}).
