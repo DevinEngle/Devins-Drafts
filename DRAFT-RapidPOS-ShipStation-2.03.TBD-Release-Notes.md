@@ -42,3 +42,18 @@ Resolved an issue that could prevent tracking numbers from being imported from S
 Resolved an issue that could prevent new carriers from being added to the **ShipStation Carriers** table in Counterpoint on some installations. This table links ShipStation carriers to Counterpoint ship-via codes, so a missing carrier means imported tracking numbers cannot update the ship-via code on the release ticket.
 
 - When a new carrier is added in ShipStation, a matching entry is created in the **ShipStation Carriers** table automatically. The ship-via code on the new entry is left blank so it can be assigned in Counterpoint, if desired.
+
+### ShipStation ID Saved Immediately for Instantly Sent Release Tickets
+
+When a release ticket is sent to ShipStation as soon as it is completed, the ShipStation ID is now saved to the release ticket right away. Previously, the ID was not saved until the next scheduled run of the connector, so the release ticket briefly appeared as if it had not been sent.
+
+- The ShipStation ID links the release ticket in Counterpoint to the matching order in ShipStation, and it is used when tracking numbers are imported.
+
+### Automatic Recovery After a Server or SQL Server Restart
+
+Resolved an issue where the connector could stop running after the server was rebooted or the SQL Server service was restarted, and would stay stopped until someone restarted the connector's Windows Service manually. 
+
+- When the connector starts, it now waits up to 20 seconds for SQL Server to become available. This covers the common case where the connector starts before SQL Server has finished starting after a reboot.
+- If SQL Server is still unavailable after 20 seconds, the connector now reports the startup as failed, so that Windows can restart the service automatically.
+- If the connection to SQL Server is lost while the connector is running, the connector now waits between retries, starting at 5 seconds and increasing up to 5 minutes, instead of retrying continuously. This keeps CPU usage low during an outage, and normal processing resumes when SQL Server is available again.
+- Connection problems, and the time the connection is restored, are now recorded in the connector log.
