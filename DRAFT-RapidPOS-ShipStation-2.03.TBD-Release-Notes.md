@@ -32,4 +32,4 @@ Resolved an issue that could prevent tracking numbers from being imported from S
 
 Resolved an issue that could prevent new carriers from being added to the **ShipStation Carriers** table in Counterpoint on some installations. This table links ShipStation carriers to Counterpoint ship-via codes, so a missing carrier means imported tracking numbers cannot update the ship-via code on the release ticket.
 
-- When a new carrier is added in ShipStation, a matching entry is now created in the **ShipStation Carriers** table automatically. The ship-via code on the new entry is left blank so it can be assigned in Counterpoint.
+- When a new carrier is added in ShipStation, a matching entry is created in the **ShipStation Carriers** table automatically. The ship-via code on the new entry is left blank so it can be assigned in Counterpoint, if desired.
