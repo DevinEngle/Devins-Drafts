@@ -25,7 +25,7 @@ For a full list of fields sent to ShipStation, see the [ShipStation Connector do
 
 Resolved an issue that could prevent tracking numbers from being imported from ShipStation into Counterpoint on some installations. Release tickets continued to send to ShipStation, but tracking numbers were not returned to Counterpoint.
 
-- Tracking numbers and their carrier codes now import on the configured schedule (every 15 minutes by default).
+- Tracking numbers import on the configured schedule (every 15 minutes by default).
 - The same issue stopped the **Tracking Last Get Date (UTC)** field in the connector configuration from updating. This field shows the last time tracking information was imported, and it now updates each time the import runs.
 
 ### Restored Automatic Updates to the ShipStation Carriers Table
