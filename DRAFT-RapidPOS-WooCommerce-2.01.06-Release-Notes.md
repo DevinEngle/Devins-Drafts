@@ -41,7 +41,7 @@ The inventory and item update triggers now flag items for sync more consistently
 
 ### Fulfilled Orders Update to Completed in WooCommerce
 
-When the Send Fulfillments setting is turned on, orders that are fulfilled in Counterpoint are now reliably updated to the "Completed" status in WooCommerce.
+When the **Send Fulfillments configuration setting** is turned on, orders that are fulfilled in Counterpoint are now reliably updated to the "Completed" status in WooCommerce.
 
 - Each order is marked as sent in Counterpoint only after WooCommerce confirms that it accepted the update. If the update does not go through, the order is sent again on the next connector run.
 - Each fulfilled order is tracked individually, so the status of one order does not affect any other order.
