@@ -19,21 +19,27 @@ The connector now connects to the Counterpoint database with its own dedicated S
 
 ## Bug Fixes and Performance Enhancements
 
-### Reduced Database Load from Inventory Changes
+### Reduced Redundant Item Writes from the Inventory and Item Update Triggers
 
-The connector uses database triggers in Counterpoint to flag items that need a quantity update on WooCommerce. (A trigger is a small piece of SQL code that runs automatically whenever a table is changed.) These triggers now skip work that does not affect website stock, which reduces the load on the SQL Server and helps keep Counterpoint responsive for store users. Items are still flagged for sync every time their quantity changes.
+The Counterpoint inventory trigger (USER_TR_WOOCOMMERCE_IM_INV_UI) and item update trigger (USER_TR_WOOCOMMERCE_IM_ITEM_IU) have been refined so that they only write to the item record (IM_ITEM) when a relevant value actually changes. Previously, the inventory trigger could flag an item for sync every time its inventory record (IM_INV) was updated, even when no quantity changed, and both triggers could rewrite the sync flag on items that were already flagged. Because Counterpoint updates IM_INV often, this created unnecessary database activity.
 
-- Counterpoint updates the inventory table (IM_INV) often for reasons that have nothing to do with stock, such as record lock stamps, replication flags, and maintenance dates. The inventory trigger now flags an item only when a quantity column is updated, and only when the change is at the ecommerce location.
-- Items that are already flagged for sync are no longer written to the item table (IM_ITEM) again. Each write to IM_ITEM also runs the other triggers on that table, so skipping these repeat writes prevents a single small inventory change from causing a large amount of database activity.
+The following changes were made:
+
+- **Quantity changes only:** The inventory trigger now only flags an item for sync when a quantity column is part of the update. Updates to unrelated values, such as record lock stamps, replication flags, and maintenance dates, no longer flag the item.
+- **Ecommerce location only:** The inventory trigger now only flags an item for sync when the updated inventory record is at the ecommerce location.
+- **Sync flag:** USER_WOOCOMMERCE_STAT is now only set to 1 when it is not already 1, on both the item record (IM_ITEM) and the parent item table (USER_WOOCOMMERCE_PARENT_IM_ITEM). Items that are already flagged for sync are no longer rewritten.
+- **Ecommerce item checkboxes:** The item update trigger now only processes unchecked ecommerce items when the ecommerce item checkbox (IS_ECOMM_ITEM) or the WooCommerce item checkbox (USER_WOOCOMMERCE_ITEM) is part of the update. Editing other fields on an item no longer runs this step.
+
+Expected item behavior is otherwise unchanged. Changing an item's quantity at the ecommerce location still flags it for sync, and editing an item still flags it for sync.
 
 ### More Reliable Sync Flagging for Parent Products and Quantity Changes
 
-The connector now flags items for sync more consistently in two situations that could previously leave website quantities out of date.
+The inventory and item update triggers now flag items for sync more consistently in two situations that could previously leave website quantities out of date.
 
-- When several items are moved to different parent products in a single bulk edit, both the previous parent products and the new parent products are now flagged for sync.
-- When another process in Counterpoint (for example, another database trigger) writes a quantity change to the inventory table, the item is now flagged for sync the same way as any other quantity change.
-
-### Fulfilled Orders Now Update to Completed in WooCommerce
+- **Parent products in bulk edits:** When several items are moved to different parent products in a single update, the item update trigger (USER_TR_WOOCOMMERCE_IM_ITEM_IU) now flags both the previous parent products and the new parent products for sync.
+- **Quantity changes from other triggers:** When another trigger in Counterpoint writes a quantity change to the inventory record (IM_INV), the inventory trigger (USER_TR_WOOCOMMERCE_IM_INV_UI) now flags the item for sync the same way as any other quantity change.
+- 
+### Fulfilled Orders Update to Completed in WooCommerce
 
 When the Send Fulfillments setting is turned on, orders that are fulfilled in Counterpoint are now reliably updated to the "Completed" status in WooCommerce.
 
