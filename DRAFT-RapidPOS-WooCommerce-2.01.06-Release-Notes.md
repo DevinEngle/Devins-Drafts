@@ -50,7 +50,7 @@ When the **Send Fulfillments configuration setting** is turned on, orders that a
 
 ### Products Already Deleted in WooCommerce No Longer Stop the Sync
 
-When the Delete Products setting is turned on, the connector moves a product to the WooCommerce trash after the item is no longer flagged as an ecommerce item in Counterpoint. If the product was already moved to the trash or deleted directly in WooCommerce, the connector now treats it as removed and continues with the rest of the sync, including inventory updates.
+When the **Delete Products configuration setting** is turned on, the connector moves a product to the WooCommerce trash after the item is no longer flagged as an ecommerce item in Counterpoint. If the product was already moved to the trash or deleted directly in WooCommerce, the connector now treats it as removed and continues with the rest of the sync, including inventory updates.
 
 - The connector marks these products as processed in Counterpoint and records an informational message in the connector log.
 - This also applies to products and variations that no longer exist in WooCommerce.
