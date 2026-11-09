@@ -38,7 +38,7 @@ The inventory and item update triggers now flag items for sync more consistently
 
 - **Parent products in bulk edits:** When several items are moved to different parent products in a single update, the item update trigger (USER_TR_WOOCOMMERCE_IM_ITEM_IU) now flags both the previous parent products and the new parent products for sync.
 - **Quantity changes from other triggers:** When another trigger in Counterpoint writes a quantity change to the inventory record (IM_INV), the inventory trigger (USER_TR_WOOCOMMERCE_IM_INV_UI) now flags the item for sync the same way as any other quantity change.
-- 
+
 ### Fulfilled Orders Update to Completed in WooCommerce
 
 When the Send Fulfillments setting is turned on, orders that are fulfilled in Counterpoint are now reliably updated to the "Completed" status in WooCommerce.
