@@ -50,23 +50,17 @@ When the **Send Fulfillments configuration setting** is turned on, orders that a
 
 ### Products Already Deleted in WooCommerce No Longer Stop the Sync
 
-When the **Delete Products configuration setting** is turned on, the connector moves a product to the WooCommerce trash after the item is no longer flagged as an ecommerce item in Counterpoint. If the product was already moved to the trash or deleted directly in WooCommerce, the connector now treats it as removed and continues with the rest of the sync, including inventory updates.
+When the **Delete Products configuration setting** is turned on, the connector moves a product to the WooCommerce trash after the "Is Ecommerce" or "Is WooCommerce" flag is unchecked for the item in Counterpoint. If the product was already moved to the trash or deleted directly in WooCommerce, the connector now treats it as removed and continues with the rest of the sync, including inventory updates.
 
 - The connector marks these products as processed in Counterpoint and records an informational message in the connector log.
 - This also applies to products and variations that no longer exist in WooCommerce.
-- REMINDER: The recommended way to remove a product from WooCommerce is to unflag the item as an ecommerce item in Counterpoint and allow the connector to move the product to the trash on its next full run.
+- REMINDER: When the Delete Products configuration setting is turned on, the recommended way to remove a product from WooCommerce is to uncheck the "Is Ecommerce" or "Is WooCommerce" flag for the item in Counterpoint and allow the connector to move the product to the trash on its next full run.
 
 ### Improved Hiding of Products and Variations That Are No Longer Ecommerce Items
 
-When an item is no longer flagged as an ecommerce item in Counterpoint, the connector hides the matching product or variation on WooCommerce. Hiding now works for all product types and for variations.
+When the **Delete Products configuration setting** is turned off and the **Hide Unchecked Ecomm Item configuration setting** is turned on, the connector hides the matching product on the WooCommerce site after the "Is Ecommerce" or "Is WooCommerce" flag is unchecked for the item in Counterpoint. If the flag is checked again, the product becomes visible again. Hiding now works for all product types and for variations.
 
 - For products, the connector now updates only the product's catalog visibility, instead of sending the entire product back to WooCommerce. This allows products of every type to be hidden successfully.
-- Variations do not have a catalog visibility setting in WooCommerce, so the connector now hides a variation by setting its status to Private. If the item is flagged as an ecommerce item again, the variation is set back to Published during the next sync.
+- Variations do not have a catalog visibility setting in WooCommerce, so the connector now hides a variation by setting its status to Private. If the flag is checked again, the variation is set back to Published during the next sync.
 - If a product cannot be hidden, the connector log now includes the item number to make troubleshooting easier.
-
-### Reliable Loyalty Point Adjustments
-
-The connector processes loyalty point adjustments for several customers at the same time. Adjustments for different customers no longer conflict with each other or with Counterpoint, so each customer's adjustment is applied on the same connector run.
-
-- Each loyalty point adjustment requires a new event number from Counterpoint. Adjustments now wait their turn for an event number, instead of occasionally receiving the same number as another adjustment and being skipped until a later run.
-- If the SQL Server briefly blocks an adjustment because another process is using the same records, the connector now retries the adjustment automatically. Adjustments that were already applied are never applied twice.
+- If both configuration settings are turned off, the product's visibility on WooCommerce is not changed when the item is unchecked in Counterpoint.
