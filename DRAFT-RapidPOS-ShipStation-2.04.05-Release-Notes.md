@@ -16,7 +16,8 @@ In some installations, SQL Server and the Counterpoint application server run on
 - The connector starts by checking every 5 seconds, and Rapid can shorten this to as little as 2 seconds with the **OrderPollSeconds** setting.
   - In testing, a ticket reached ShipStation in about 4 seconds with a 5-second check and about 3 seconds with a 2-second check.
 - These checks run separately from the scheduled catch-all sync, which continues to send transfers.
-- The connector can send about 20 orders per minute (about 1,200 per hour). ShipStation sets this limit, not the check interval. ShipStation allows 40 requests per minute for each API key.
+- The connector can send about 20 orders per minute (about 1,200 per hour). ShipStation sets this limit, not the check interval.
+  - ShipStation allows 40 requests per minute for each API key.
   - Each order uses two requests: one to confirm the order is not already in ShipStation, which prevents duplicate orders, and one to send it.
   - Other connector jobs on the same API key share this limit, such as shipment status updates and transfers.
 - When many tickets are completed at once, the connector sends them oldest first. If ShipStation's limit is reached, the connector pauses until the limit resets and then continues. For example, 30 tickets completed at the same time are all sent in about a minute and a half.
