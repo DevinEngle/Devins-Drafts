@@ -15,7 +15,7 @@ In some installations, SQL Server and the Counterpoint application server run on
   - **All other installations still send tickets to ShipStation when they are completed, with no change.**
 - The connector starts by checking every 5 seconds, and Rapid can shorten this to as little as 2 seconds with the **OrderPollSeconds** setting.
   - In testing, a ticket reached ShipStation in about 4 seconds with a 5-second check and about 3 seconds with a 2-second check.
-- These checks run separately from the scheduled catch-all sync, which continues to send transfers.
+- These checks run separately from the scheduled catch-all sync, which continues to send transfers and any orders that may have been missed by these checks.
 - The connector can send about 20 orders per minute (about 1,200 per hour). ShipStation sets this limit, not the check interval.
   - ShipStation allows 40 requests per minute for each API key.
   - Each order uses two requests: one to confirm the order is not already in ShipStation, which prevents duplicate orders, and one to send it.
@@ -26,6 +26,7 @@ In some installations, SQL Server and the Counterpoint application server run on
 
 ### ShipStation IDs for Transfers
 
-When the connector sent a group of transfers to ShipStation and found that one of them already existed there, it could also give that transfer's ShipStation ID to the remaining unsent transfers in the group. 
+When the connector sent a group of transfers to ShipStation and found that one of them already existed there, it could also give that transfer's ShipStation ID to the remaining unsent transfers in the group.
+
 - Since those transfers were still sent to ShipStation as usual, and each one later received its own correct ShipStation ID in Counterpoint, this issue is unlikely to have caused any visible problems.
-- The connector now gives the existing ShipStation ID only to the matching transfer, so every transfer keeps its correct ShipStation ID throughout the sync. 
+- The connector now gives the existing ShipStation ID only to the matching transfer, so every transfer keeps its correct ShipStation ID throughout the sync.
