@@ -10,9 +10,10 @@ _Release Date: November 10, 2026_
 
 In some installations, SQL Server and the Counterpoint application server run on separate machines. In these installations, completed tickets were no longer sent to ShipStation right away, because, due to a recent security enhancement, the connector can only open its secure database connection on the machine where it is installed. For these installations only, the connector now checks for completed tickets every few seconds and sends them to ShipStation, so tickets still reach ShipStation within seconds of being completed.
 
+>**All other installations still send tickets to ShipStation when they are completed, with no change.**
+
 - This change applies only to installations where SQL Server and Counterpoint are on separate machines.
   - Rapid turns it on for those installations by setting the **Fast Poll** pipeline library variable to Y. The connector then reads completed tickets from the `USER_VI_SHIP_STATION_HDR_ELIG` view instead of sending them at ticket completion.
-  - **All other installations still send tickets to ShipStation when they are completed, with no change.**
 - The connector starts by checking every 5 seconds, and Rapid can shorten this to as little as 2 seconds with the **OrderPollSeconds** setting.
   - In testing, a ticket reached ShipStation in about 4 seconds with a 5-second check and about 3 seconds with a 2-second check.
 - These checks run separately from the scheduled catch-all sync, which continues to send transfers and any orders that may have been missed by these checks.
