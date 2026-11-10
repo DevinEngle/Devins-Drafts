@@ -26,6 +26,6 @@ In some installations, SQL Server and the Counterpoint application server run on
 
 ### ShipStation IDs for Transfers
 
-When the connector sent a group of transfers to ShipStation and found that one of them already existed there, it could also give that transfer's ShipStation ID to the remaining transfers in the group. 
+When the connector sent a group of transfers to ShipStation and found that one of them already existed there, it could also give that transfer's ShipStation ID to the remaining unsent transfers in the group. 
 - Since those transfers were still sent to ShipStation as usual, and each one later received its own correct ShipStation ID in Counterpoint, this issue is unlikely to have caused any visible problems.
 - The connector now gives the existing ShipStation ID only to the matching transfer, so every transfer keeps its correct ShipStation ID throughout the sync. 
