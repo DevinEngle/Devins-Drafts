@@ -28,8 +28,7 @@ Limitations:
 
 Previously, some changes to the grid cells of a gridded item in Counterpoint were not reaching Shopify. Grid cell additions and deletions in Counterpoint now sync to Shopify correctly.
 
-Details: 
-The connector builds a gridded item's Shopify variants from the Shopify Item Variants table (`USER_SHOPIFY_ITEM_VARIANTS`), which holds one record for each grid cell at each location mapped to Shopify. The triggers that keep this table in sync with the item's grid cells (`IM_INV_CELL`) have been corrected, and the connector now repairs any missing records before it syncs the item.
+Details: The connector builds a gridded item's Shopify variants from the Shopify Item Variants table (`USER_SHOPIFY_ITEM_VARIANTS`), which holds one record for each grid cell at each location mapped to Shopify. The triggers that keep this table in sync with the item's grid cells (`IM_INV_CELL`) have been corrected, and the connector now repairs any missing records before it syncs the item.
 
 **New grid cells now sync to Shopify.**
 - Previously, when a new dimension combination was stocked, the item was flagged to sync, but no variant record was created for the new grid cell, so the new variant was never created in Shopify.
