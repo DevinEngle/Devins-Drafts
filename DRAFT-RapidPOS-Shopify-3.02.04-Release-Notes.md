@@ -92,6 +92,6 @@ On some offline stations (registers), customer updates sent from the Counterpoin
 
 SQL Server saves the `ANSI_NULLS` setting into each trigger at the time the trigger is created. Some tables use SQL Server features such as filtered indexes. If a trigger that runs during a customer update on one of those tables was created with `ANSI_NULLS` OFF, SQL Server rejects the update. [CONFIRM WITH RAUL: The connector's customer trigger (`USER_TR_SHOPIFY_AR_CUST_IU`) had been created with `ANSI_NULLS` OFF.]
 
-**- [CONFIRM WITH RAUL: The `USER_TR_SHOPIFY_AR_CUST_IU` trigger is now created with `ANSI_NULLS` ON and `QUOTED_IDENTIFIER` ON. If the fix instead makes the trigger skip processing on offline stations, reword this bullet to match the offline station section.]
-- [CONFIRM WITH RAUL: The updated trigger reaches offline stations automatically. No manual action is required on any register.]
-- [CONFIRM WITH RAUL: Customer updates that previously failed on a register are processed automatically after the upgrade, or they must be reprocessed.]**
+- [**CONFIRM WITH RAUL:** The `USER_TR_SHOPIFY_AR_CUST_IU` trigger is now created with `ANSI_NULLS` ON and `QUOTED_IDENTIFIER` ON. If the fix instead makes the trigger skip processing on offline stations, reword this bullet to match the offline station section.]
+- [**CONFIRM WITH RAUL:** The updated trigger reaches offline stations automatically. No manual action is required on any register.]
+- [**CONFIRM WITH RAUL:** Customer updates that previously failed on a register are processed automatically after the upgrade, or they must be reprocessed.]
