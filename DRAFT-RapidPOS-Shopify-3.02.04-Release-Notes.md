@@ -24,26 +24,6 @@ Limitations:
 
 ## Bug Fixes and Performance Enhancements
 
-### Gridded Item Grid Cell Changes Not Syncing to Shopify
-
-Previously, some changes to the grid cells of a gridded item in Counterpoint were not reaching Shopify. Grid cell additions and deletions in Counterpoint now sync to Shopify correctly.
-
-Details: The connector builds a gridded item's Shopify variants from the Shopify Item Variants table (`USER_SHOPIFY_ITEM_VARIANTS`), which holds one record for each grid cell at each location mapped to Shopify. The triggers that keep this table in sync with the item's grid cells (`IM_INV_CELL`) have been corrected, and the connector now repairs any missing records before it syncs the item.
-
-**New grid cells now sync to Shopify.**
-- Previously, when a new dimension combination was stocked, the item was flagged to sync, but no variant record was created for the new grid cell, so the new variant was never created in Shopify.
-- The connector now adds any missing variant records for the item's grid cells before syncing it.
-
-**Deleted grid cells are now removed from Shopify.** 
-- Previously, the `USER_TR_SHOPIFY_IM_INV_CELL_D` trigger removed the variant records for a deleted grid cell but did not flag the item to sync, so the variant remained on Shopify until a later change, such as a sale, flagged the item. 
-- The trigger now flags the item, but only for the Shopify accounts where a variant record was actually removed. Deleting a grid cell at a location that is not mapped to Shopify does not flag the item.
-
-**Items with three grid dimensions no longer lose other variants.** 
-- Previously, the triggers did not compare the third dimension (`DIM_3_UPR`) when matching variant records, so deleting one grid cell also deleted the variant records for every other grid cell that shared the same first and second dimension values. The connector then removed those variants from Shopify and later recreated them with new Shopify IDs.
-- This has been corrected in the `USER_TR_USER_SHOPIFY_ITEMS_IU`, `USER_TR_USER_SHOPIFY_LOC_I`, and `USER_TR_SHOPIFY_IM_INV_CELL_D` triggers.
-- Items with one or two grid dimensions were not affected.
-- Variant records that were previously lost because of this issue are restored automatically the next time each affected item syncs. No action is required.
-
 ### Inactive Items Appearing Stuck in the Shopify Items Status View
 
 Inactive Counterpoint items are not synced to Shopify by design. However, when an inactive item was flagged to sync, the connector moved it to a sync status of 2 (in progress) along with the other flagged items, and then skipped it during processing. As a result, these items stayed at a sync status of 2 and were counted in the **Shopify Items Status View**, which made it appear that they were stuck or failing to sync.
@@ -67,3 +47,23 @@ Two Shopify connector triggers, `USER_TR_IM_ITEM_SHOPIFY_ITEMS_COPY_FROM` and `U
 
 - These triggers now skip processing when they run on an offline station. The connector works only with the Counterpoint server database, so these triggers do not need to run on registers.
 - The updated triggers reach offline stations automatically. No manual action is required on any register.
+
+### Gridded Item Grid Cell Changes Not Syncing to Shopify
+
+Previously, some changes to the grid cells of a gridded item in Counterpoint were not reaching Shopify. Grid cell additions and deletions in Counterpoint now sync to Shopify correctly.
+
+Details: The connector builds a gridded item's Shopify variants from the Shopify Item Variants table (`USER_SHOPIFY_ITEM_VARIANTS`), which holds one record for each grid cell at each location mapped to Shopify. The triggers that keep this table in sync with the item's grid cells (`IM_INV_CELL`) have been corrected, and the connector now repairs any missing records before it syncs the item.
+
+**New grid cells now sync to Shopify.**
+- Previously, when a new dimension combination was stocked, the item was flagged to sync, but no variant record was created for the new grid cell, so the new variant was never created in Shopify.
+- The connector now adds any missing variant records for the item's grid cells before syncing it.
+
+**Deleted grid cells are now removed from Shopify.** 
+- Previously, the `USER_TR_SHOPIFY_IM_INV_CELL_D` trigger removed the variant records for a deleted grid cell but did not flag the item to sync, so the variant remained on Shopify until a later change, such as a sale, flagged the item. 
+- The trigger now flags the item, but only for the Shopify accounts where a variant record was actually removed. Deleting a grid cell at a location that is not mapped to Shopify does not flag the item.
+
+**Items with three grid dimensions no longer lose other variants.** 
+- Previously, the triggers did not compare the third dimension (`DIM_3_UPR`) when matching variant records, so deleting one grid cell also deleted the variant records for every other grid cell that shared the same first and second dimension values. The connector then removed those variants from Shopify and later recreated them with new Shopify IDs.
+- This has been corrected in the `USER_TR_USER_SHOPIFY_ITEMS_IU`, `USER_TR_USER_SHOPIFY_LOC_I`, and `USER_TR_SHOPIFY_IM_INV_CELL_D` triggers.
+- Items with one or two grid dimensions were not affected.
+- Variant records that were previously lost because of this issue are restored automatically the next time each affected item syncs. No action is required.
