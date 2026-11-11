@@ -70,3 +70,28 @@ Details: The connector builds a gridded item's Shopify variants from the Shopify
 - This has been corrected in the `USER_TR_USER_SHOPIFY_ITEMS_IU`, `USER_TR_USER_SHOPIFY_LOC_I`, and `USER_TR_SHOPIFY_IM_INV_CELL_D` triggers.
 - Items with one or two grid dimensions were not affected.
 - Variant records that were previously lost because of this issue are restored automatically the next time each affected item syncs. No action is required.
+
+### Deadlocks When Syncing Items During Large Item Updates
+
+Previously, if a large update to Counterpoint items (`IM_ITEM`) ran at the same time the connector was reading a Shopify Item Record, the two processes could block each other in SQL Server (a deadlock). SQL Server resolved the deadlock by stopping the connector's read, so the item did not sync during that run.
+
+- The `userFnShopifyItemDescription` function, which supplies the Shopify product title (`USER_SHOPIFY_PRODUCT_TITLE`), and the connector's query that loads a single Shopify Item Record no longer wait on locks held by other updates to `IM_ITEM`. This matches how the connector's other Shopify functions and queries already read item data.
+- Large item updates now also lock fewer Shopify Item Records. For details, see Reduced Redundant Item Writes from the Inventory and Item Update Triggers.
+
+### Shopify Orders Not Fully Committed After a Deadlock
+
+After the connector saves a downloaded Shopify order in Counterpoint, it runs the Counterpoint commit step (`USP_PS_TE_COMMIT_DOC`) to finalize the document. Previously, if this step was stopped by a deadlock with another process, such as a large update to Counterpoint items, the error was only logged. Because the order had already been saved, later connector runs treated it as already downloaded and skipped it, so the order remained in Counterpoint without being committed and was never retried.
+
+- The commit step now runs at a high deadlock priority, so that SQL Server normally stops the other process instead of the order commit. The priority returns to normal as soon as the commit step finishes, so other connector activity is not affected.
+- If the commit step is still stopped by a deadlock, the connector tries it up to three times in total, waiting one second and then two seconds between attempts. Any other error is handled the same way as before.
+- This applies to new orders downloaded from Shopify and to edited orders that are saved again.
+
+### Customer Updates Failing on Offline Stations with an ANSI_NULLS Error
+
+On some offline stations (registers), customer updates sent from the Counterpoint server failed to process. The Counterpoint service log showed the error "INSERT failed because the following SET options have incorrect settings: 'ANSI_NULLS'." As a result, new or changed customers did not reach the affected register.
+
+SQL Server saves the `ANSI_NULLS` setting into each trigger at the time the trigger is created. Some tables use SQL Server features such as filtered indexes. If a trigger that runs during a customer update on one of those tables was created with `ANSI_NULLS` OFF, SQL Server rejects the update. [CONFIRM WITH RAUL: The connector's customer trigger (`USER_TR_SHOPIFY_AR_CUST_IU`) had been created with `ANSI_NULLS` OFF.]
+
+- [CONFIRM WITH RAUL: The `USER_TR_SHOPIFY_AR_CUST_IU` trigger is now created with `ANSI_NULLS` ON and `QUOTED_IDENTIFIER` ON. If the fix instead makes the trigger skip processing on offline stations, reword this bullet to match the offline station section.]
+- [CONFIRM WITH RAUL: The updated trigger reaches offline stations automatically. No manual action is required on any register.]
+- [CONFIRM WITH RAUL: Customer updates that previously failed on a register are processed automatically after the upgrade, or they must be reprocessed.]
