@@ -9,9 +9,9 @@ _Release Date: November 11, 2026_
 ### Updating Customer Email Addresses from Counterpoint to Shopify
 
 A customer's **Email Address 1** can now be changed in Counterpoint even when that customer is already linked to a Shopify customer. 
+- This functionality only applies to clients who have the **Customers Up** Shopify configuration option enabled (`USER_SHOPIFY_CONFIG.CUSTOMERS_UP`).
 - Previously, Shopify did not allow customer email addresses to be changed through the connector, so Counterpoint blocked the change with the message "Cannot update Email Address 1 because a Shopify Customer record is defined for this customer (######) and Shopify does not allow email address updates." 
 - Shopify now supports this update, so a customer's email address no longer needs to be corrected separately in each system.
-- This functionality only applies to clients who have the **Customers Up** Shopify configuration option enabled (`USER_SHOPIFY_CONFIG.CUSTOMERS_UP`).
 
 How it works:
 - When **Email Address 1** (`AR_CUST.EMAIL_ADRS_1`) is changed on a Counterpoint customer that has a Shopify Customer Record (`USER_SHOPIFY_CUST`), the customer is automatically flagged to sync.
