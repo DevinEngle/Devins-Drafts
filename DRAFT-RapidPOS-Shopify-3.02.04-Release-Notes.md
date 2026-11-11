@@ -33,16 +33,16 @@ Inactive Counterpoint items are not synced to Shopify by design. However, when a
 
 - The Shopify Items Status View (`USER_VI_SHOPIFY_ITEMS_BY_STAT`) now excludes inactive items (`IM_ITEM.STAT` = 'V'), so the counts for each sync status (`USER_SHOPIFY_STAT`) include only items that the connector actually processes.
 
-### Reduced Redundant Item Writes from the Inventory Trigger
+### Reduced Redundant Item Writes from the Inventory and Item Update Triggers
 
-The Counterpoint inventory trigger (`USER_TR_SHOPIFY_IM_INV_U`) has been refined so that it only flags an item for sync when a relevant value actually changes. Previously, the inventory trigger flagged an item for sync every time its inventory record (`IM_INV`) was updated, even when no quantity changed, and it could rewrite the sync flag on items that were already flagged. Because Counterpoint updates `IM_INV` often, this created unnecessary database activity and unnecessary product updates to Shopify.
+The Counterpoint inventory trigger (`USER_TR_SHOPIFY_IM_INV_U`) and item update trigger (`USER_TR_SHOPIFY_IM_ITEM_U`) have been refined so that they only write the Shopify sync flag when it needs to change. Previously, the inventory trigger flagged an item for sync every time its inventory record (`IM_INV`) was updated, even when no quantity changed, and both triggers could rewrite the sync flag on items that were already flagged. Because Counterpoint updates `IM_INV` and `IM_ITEM` often, this created unnecessary database activity and unnecessary product updates to Shopify.
 
 The following changes were made:
 
 - **Quantity changes only:** The inventory trigger now only flags an item for sync when a quantity column (`QTY_*`) is part of the update, or when the include in ecommerce quantity column (`USER_INCL_IN_ECOMM_QTY`) is part of the update. That column controls which locations count toward the Shopify quantity. Updates to unrelated values, such as bin locations, minimum and maximum quantities, count information, and costs (`GL_VAL`, `LST_COST`), no longer flag the item.
-- **Sync flag:** `USER_SHOPIFY_STAT` is now only set to 1 when it is not already 1. Items that are already flagged for sync are no longer rewritten.
+- **Sync flag:** `USER_SHOPIFY_STAT` is now only set to 1 when it is not already 1, in both triggers. Items that are already flagged for sync are no longer rewritten. This also means that large item updates lock fewer Shopify Item Records, which reduces the chance of deadlocks.
 
-Expected item behavior is otherwise unchanged. Changing an item's quantity still flags it for sync, including items that are not yet linked to a Shopify product.
+Expected item behavior is otherwise unchanged. Changing an item's quantity still flags it for sync, including items that are not yet linked to a Shopify product, and editing an item still flags it for sync.
 
 ### Shopify Triggers Causing Item Updates to Fail on Offline Stations After a Rebuild
 
@@ -58,14 +58,17 @@ Previously, some changes to the grid cells of a gridded item in Counterpoint wer
 Details: The connector builds a gridded item's Shopify variants from the Shopify Item Variants table (`USER_SHOPIFY_ITEM_VARIANTS`), which holds one record for each grid cell at each location mapped to Shopify. The triggers that keep this table in sync with the item's grid cells (`IM_INV_CELL`) have been corrected, and the connector now repairs any missing records before it syncs the item.
 
 **New grid cells now sync to Shopify.**
+
 - Previously, when a new dimension combination was stocked, the item was flagged to sync, but no variant record was created for the new grid cell, so the new variant was never created in Shopify.
 - The connector now adds any missing variant records for the item's grid cells before syncing it.
 
 **Deleted grid cells are now removed from Shopify.**
+
 - Previously, the `USER_TR_SHOPIFY_IM_INV_CELL_D` trigger removed the variant records for a deleted grid cell but did not flag the item to sync, so the variant remained on Shopify until a later change, such as a sale, flagged the item.
 - The trigger now flags the item, but only for the Shopify accounts where a variant record was actually removed. Deleting a grid cell at a location that is not mapped to Shopify does not flag the item.
 
 **Items with three grid dimensions no longer lose other variants.**
+
 - Previously, the triggers did not compare the third dimension (`DIM_3_UPR`) when matching variant records, so deleting one grid cell also deleted the variant records for every other grid cell that shared the same first and second dimension values. The connector then removed those variants from Shopify and later recreated them with new Shopify IDs.
 - This has been corrected in the `USER_TR_USER_SHOPIFY_ITEMS_IU`, `USER_TR_USER_SHOPIFY_LOC_I`, and `USER_TR_SHOPIFY_IM_INV_CELL_D` triggers.
 - Items with one or two grid dimensions were not affected.
