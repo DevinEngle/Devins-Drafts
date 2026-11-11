@@ -8,17 +8,20 @@ _Release Date: November 11, 2026_
 
 ### Updating Customer Email Addresses from Counterpoint to Shopify
 
-A customer's **Email Address 1** can now be changed in Counterpoint even when that customer is already linked to a Shopify customer. 
+A customer's **Email Address 1** can now be changed in Counterpoint even when that customer is already linked to a Shopify customer.
+
 - This functionality only applies to clients who have the **Customers Up** Shopify configuration option enabled (`USER_SHOPIFY_CONFIG.CUSTOMERS_UP`).
-- Previously, Shopify did not allow customer email addresses to be changed through the connector, so Counterpoint blocked the change with the message "Cannot update Email Address 1 because a Shopify Customer record is defined for this customer (######) and Shopify does not allow email address updates." 
+- Previously, Shopify did not allow customer email addresses to be changed through the connector, so Counterpoint blocked the change with the message "Cannot update Email Address 1 because a Shopify Customer record is defined for this customer (######) and Shopify does not allow email address updates."
 - Shopify now supports this update, so a customer's email address no longer needs to be corrected separately in each system.
 
 How it works:
-- When **Email Address 1** (`AR_CUST.EMAIL_ADRS_1`) is changed on a Counterpoint customer that has a Shopify Customer Record (`USER_SHOPIFY_CUST`), the customer is automatically flagged to sync.
-- Then on the next run of the connector, the email address on the matching Shopify customer is updated during the next connector run.
 
-Limitations: 
-- Shopify requires every customer to have a unique email address. If the newly updated email address is already used by another Counterpoint customer that has a Shopify Customer Record, the change is blocked (by the `USER_TR_SHOPIFY_AR_CUST_IU` trigger) so that it is not sent to Shopify only to be rejected. The user sees the message "Cannot update Email Address 1 for Customer (######) because [email address] is already used by Shopify-linked Customer (######)." The user could then review both customers and merge or edit them. 
+- When **Email Address 1** (`AR_CUST.EMAIL_ADRS_1`) is changed on a Counterpoint customer that has a Shopify Customer Record (`USER_SHOPIFY_CUST`), the customer is automatically flagged to sync.
+- On the next connector run, the email address on the matching Shopify customer is updated.
+
+Limitations:
+
+- Shopify requires every customer to have a unique email address. If the newly updated email address is already used by another Counterpoint customer that has a Shopify Customer Record, the change is blocked (by the `USER_TR_SHOPIFY_AR_CUST_IU` trigger) so that it is not sent to Shopify only to be rejected. The user sees the message "Cannot update Email Address 1 for Customer (######) because [email address] is already used by Shopify-linked Customer (######)." The user can then review both customers and merge or edit them.
 
 ---
 
@@ -58,11 +61,11 @@ Details: The connector builds a gridded item's Shopify variants from the Shopify
 - Previously, when a new dimension combination was stocked, the item was flagged to sync, but no variant record was created for the new grid cell, so the new variant was never created in Shopify.
 - The connector now adds any missing variant records for the item's grid cells before syncing it.
 
-**Deleted grid cells are now removed from Shopify.** 
-- Previously, the `USER_TR_SHOPIFY_IM_INV_CELL_D` trigger removed the variant records for a deleted grid cell but did not flag the item to sync, so the variant remained on Shopify until a later change, such as a sale, flagged the item. 
+**Deleted grid cells are now removed from Shopify.**
+- Previously, the `USER_TR_SHOPIFY_IM_INV_CELL_D` trigger removed the variant records for a deleted grid cell but did not flag the item to sync, so the variant remained on Shopify until a later change, such as a sale, flagged the item.
 - The trigger now flags the item, but only for the Shopify accounts where a variant record was actually removed. Deleting a grid cell at a location that is not mapped to Shopify does not flag the item.
 
-**Items with three grid dimensions no longer lose other variants.** 
+**Items with three grid dimensions no longer lose other variants.**
 - Previously, the triggers did not compare the third dimension (`DIM_3_UPR`) when matching variant records, so deleting one grid cell also deleted the variant records for every other grid cell that shared the same first and second dimension values. The connector then removed those variants from Shopify and later recreated them with new Shopify IDs.
 - This has been corrected in the `USER_TR_USER_SHOPIFY_ITEMS_IU`, `USER_TR_USER_SHOPIFY_LOC_I`, and `USER_TR_SHOPIFY_IM_INV_CELL_D` triggers.
 - Items with one or two grid dimensions were not affected.
