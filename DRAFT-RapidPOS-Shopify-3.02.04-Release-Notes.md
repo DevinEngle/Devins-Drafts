@@ -18,7 +18,7 @@ How it works:
 - Then on the next run of the connector, the email address on the matching Shopify customer is updated during the next connector run.
 
 Limitations: 
-- Shopify requires every customer to have a unique email address. If the newly updated email address is already used by another Counterpoint customer that has a Shopify Customer Record, the change is blocked (by the `USER_TR_SHOPIFY_AR_CUST_IU` trigger) so that it is not sent to Shopify only to be rejected. The user sees the message "Cannot update Email Address 1 for Customer (######) because [email address] is already used by Shopify-linked Customer (######)." The user could then review both customers and merge them or remove the email address from one of them (in both Counterpoint and on Shopify). 
+- Shopify requires every customer to have a unique email address. If the newly updated email address is already used by another Counterpoint customer that has a Shopify Customer Record, the change is blocked (by the `USER_TR_SHOPIFY_AR_CUST_IU` trigger) so that it is not sent to Shopify only to be rejected. The user sees the message "Cannot update Email Address 1 for Customer (######) because [email address] is already used by Shopify-linked Customer (######)." The user could then review both customers and merge or edit them. 
 
 ---
 
