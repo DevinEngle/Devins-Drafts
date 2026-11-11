@@ -84,4 +84,3 @@ After the connector saves a downloaded Shopify order in Counterpoint, it runs th
 
 - The commit step now runs at a high deadlock priority, so that SQL Server normally stops the other process instead of the order commit. The priority returns to normal as soon as the commit step finishes, so other connector activity is not affected.
 - If the commit step is still stopped by a deadlock, the connector tries it up to three times in total, waiting one second and then two seconds between attempts. Any other error is handled the same way as before.
-- This applies to new orders downloaded from Shopify and to edited orders that are saved again.
